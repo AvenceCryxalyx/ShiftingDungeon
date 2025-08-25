@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class dk_Landing : StateMachineBehaviour
+public class dk_Idle : StateMachineBehaviour
 {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
+    {
         PlayerUnitController controller = animator.GetComponentInParent<PlayerUnitController>();
-        controller.DisableInputs();
+        controller.ChangeState(UnitController.UnitState.OnGround);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -16,11 +16,10 @@ public class dk_Landing : StateMachineBehaviour
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        PlayerUnitController controller = animator.GetComponentInParent<PlayerUnitController>();
-        controller.EnableInputs();
-    }
+    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+    //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
     //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

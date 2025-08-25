@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerUnitController : UnitController
@@ -13,37 +15,44 @@ public class PlayerUnitController : UnitController
     protected float velocityLingerTime = 20f;
     #endregion
 
+    #region
+    public Action<InputAction.CallbackContext> EvtInteract { get; set;}
+    #endregion
+
     #region Fields
     protected int jumpCount;
     protected float horizontalMove;
     protected PlayerInputAction playerInput;
-    protected InputAction moveAction;
+    protected InputAction horizontalMoveAction;
+    protected InputAction verticalMoveAction;
     protected InputAction jumpAction;
     protected InputAction sprintAction;
     protected InputAction interactAction;
     #endregion
 
     #region Unity Methods
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         playerInput = new PlayerInputAction();
-        moveAction = playerInput.Avatar.HorizontalMovement;
+        horizontalMoveAction = playerInput.Avatar.HorizontalMovement;
+        verticalMoveAction = playerInput.Avatar.VerticalMovement;
         jumpAction = playerInput.Avatar.Jump;
         sprintAction = playerInput.Avatar.Sprint;
-        //interactAction = 
+        interactAction = playerInput.Avatar.Interact;
         jumpAction.performed += OnJumpButtonDown;
         jumpAction.canceled += OnJumpButtonUp;
         sprintAction.performed += OnSprintButtonDown;
         sprintAction.canceled += OnSprintButtonUp;
+        interactAction.performed += OnInteract;
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         DisableInputs();
     }
-    #endregion
 
-    #region Overrides
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -52,23 +61,68 @@ public class PlayerUnitController : UnitController
 
     protected override void Update()
     {
-        InputX = moveAction.ReadValue<float>();
+        InputX = horizontalMoveAction.ReadValue<float>();
+        InputY = verticalMoveAction.ReadValue<float>();
         base.Update();
+
+        if (CurrentState == UnitState.OnLadder)
+        {
+            velocity = (Vector2.up * InputY * CurrentMoveSpeed);
+        }
+    }
+    #endregion
+
+    #region Overrides
+    public override void SetYMovementEnable(bool enable = true)
+    {
+        base.SetYMovementEnable(enable);
+        if(enable)
+        {
+            verticalMoveAction.Enable();
+        }
+        else
+        {
+            verticalMoveAction.Disable();
+        }
+    }
+    public override void SetXMovementEnable(bool enable = true)
+    {
+        base.SetXMovementEnable(enable);
+        if (enable)
+        {
+            horizontalMoveAction.Enable();
+        }
+        else
+        {
+            horizontalMoveAction.Disable();
+        }
+    }
+
+    protected override void OnStateChanged(UnitState oldState, UnitState newState)
+    {
+        base.OnStateChanged(oldState, newState);
+
+        UpdateStateChanges(newState);
     }
     #endregion
 
     #region Public Methods
     public void EnableInputs()
     {
-        moveAction.Enable();
+        horizontalMoveAction.Enable();
+        verticalMoveAction.Enable();
         jumpAction.Enable();
+        interactAction.Enable();
         sprintAction.Enable();
     }
 
     public void DisableInputs()
     {
-        moveAction.Disable();
+        horizontalMoveAction.Disable();
+        verticalMoveAction.Disable();
         jumpAction.Disable();
+        interactAction.Disable();
+        sprintAction.Disable();
 
     }
     #endregion
@@ -79,6 +133,7 @@ public class PlayerUnitController : UnitController
         if (IsGrounded)
         {
             velocity.y = jumpPower;
+            Avatar.SetTrigger("Jump");
         }
     }
 
@@ -97,6 +152,45 @@ public class PlayerUnitController : UnitController
     private void OnSprintButtonUp(InputAction.CallbackContext context)
     {
         SpeedModifier = 1;
+    }
+
+    private void OnInteract(InputAction.CallbackContext context)
+    {
+        if(EvtInteract != null)
+        {
+            EvtInteract.Invoke(context);
+        }
+    }
+
+    private void UpdateStateChanges(UnitState newState)
+    {
+        switch (newState)
+        {
+            case UnitState.OnGround:
+                horizontalMoveAction.Enable();
+                verticalMoveAction.Disable();
+                jumpAction.Enable();
+                sprintAction.Enable();
+                interactAction.Enable();
+                break;
+            case UnitState.InAir:
+                sprintAction.Disable();
+                break;
+            case UnitState.OnLadder:
+                horizontalMoveAction.Disable();
+                verticalMoveAction.Enable();
+                jumpAction.Disable();
+                sprintAction.Disable();
+                SetGravityEnable(false);
+                velocity = Vector2.zero;
+                break;
+            case UnitState.Dead:
+                DisableInputs();
+                break;
+            default:
+                DisableInputs();
+                break;
+        }
     }
     #endregion
 }

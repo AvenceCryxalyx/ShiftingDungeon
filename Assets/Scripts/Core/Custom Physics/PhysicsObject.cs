@@ -35,17 +35,13 @@ public class PhysicsObject : MonoBehaviour
     protected virtual void OnEnable()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        isGravityEnabled = true;
+        SetContactFilter();
     }
 
     protected virtual void ComputeVelocity() { }
     protected virtual void OnGrounded() { }
-    protected virtual void Start()
-    {
-        contactFilter.useTriggers = false;
-        contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
-        contactFilter.useLayerMask = true;
-    }
-
+    protected virtual void Start() { }
     // Update is called once per frame
     protected virtual void Update()
     {
@@ -60,6 +56,10 @@ public class PhysicsObject : MonoBehaviour
         if (isGravityEnabled)
         {
             velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+        }
+        else
+        {
+            velocity = new Vector2(0, MoveY);
         }
         velocity.x = targetVelocity.x;
 
@@ -126,8 +126,21 @@ public class PhysicsObject : MonoBehaviour
     #region Public Methods
     public void SetGravityEnable(bool enable = true)
     {
+        velocity = Vector2.zero;
         isGravityEnabled = enable;
+    }
+
+    public void ChangeLayer(int layer)
+    {
+        this.gameObject.layer = layer;
+        SetContactFilter();
+    }
+
+    public void SetContactFilter()
+    {
+        contactFilter.useTriggers = false;
+        contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer));
+        contactFilter.useLayerMask = true;
     }
     #endregion
 }
-

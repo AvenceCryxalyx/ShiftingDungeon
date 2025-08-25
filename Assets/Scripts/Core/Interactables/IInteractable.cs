@@ -1,10 +1,16 @@
 using UnityEngine;
 
+public enum InteractableError
+{
+    Success,
+    Failed,
+}
+
 public interface IInteractable
 {
-    public CustomAddedPlayerAction GetAction();
-    public void Interact();
-    public void IsInteractable();
-    public void OnReachable();
-    public void OnUnreachable();
+    public string InteractText();
+    public int Interact(PlayerUnitController controller);
+    public bool IsInteractable();
+    public void OnReachable(PlayerUnitController controller);
+    public void OnUnreachable(PlayerUnitController controller);
 }

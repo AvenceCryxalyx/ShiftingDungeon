@@ -41,5 +41,13 @@ public class Avatar : MonoBehaviour
             animator.SetFloat(name, value);
         }
     }
+
+    public void SetTrigger(string name)
+    {
+        if(animator != null)
+        {
+            animator.SetTrigger(name);
+        }
+    }
     #endregion
 }
