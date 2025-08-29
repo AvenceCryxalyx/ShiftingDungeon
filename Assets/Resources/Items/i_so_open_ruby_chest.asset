@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22a7d8c44d686940bb616de35c19c2e, type: 3}
+  m_Name: i_so_open_ruby_chest
+  m_EditorClassIdentifier: 
+  Name: Ruby Chest (Unlocked)
+  Description: An extravagant chest made of ruby (Unlocked)
+  BaseValue: 2500
+  Sprite: {fileID: 21300000, guid: 44a1e472291d93b4b86d57393e34fa02, type: 3}
+  Type: 2
+  Rarity: 3
+  OverridePrefab: {fileID: 0}

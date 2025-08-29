@@ -1,9 +1,33 @@
 using UnityEngine;
+using System.Collections.Generic;
+using Sirenix.OdinInspector;
 
 public class InteractableItem : MonoBehaviour, IInteractable
 {
-    private bool canPickup = false;
+    [SerializeField]
+    private Item.ItemRarity RarityDrop;
+    [SerializeField]
+    private bool useWeightedGacha;
+    [SerializeField]
     private Item item;
+    [SerializeField]
+    private GameObject selectedVisual;
+
+    private bool canPickup = false;
+
+    public void SetItem(Item item)
+    {
+        if(this.item == null)
+        {
+            this.item = item;
+            this.item.transform.SetParent(this.transform);
+        }
+        else
+        {
+            Debug.LogWarning("Trying to overwrite the item assigned to drop object");
+        }
+    }
+
     public string InteractText()
     {
         return "Pick up";
@@ -18,7 +42,7 @@ public class InteractableItem : MonoBehaviour, IInteractable
         int res = Player.instance.Inventory.AddItem(item);
         if (res == 0)
         {
-            Destroy(this);
+            gameObject.PoolOrDestroy();
         }
         return 0;
     }
@@ -26,6 +50,22 @@ public class InteractableItem : MonoBehaviour, IInteractable
     public bool IsInteractable()
     {
         return canPickup;
+    }
+
+    public void OnSelected()
+    {
+        if (selectedVisual != null)
+        {
+            selectedVisual.SetActive(true);
+        }
+    }
+
+    public void OnUnselected()
+    {
+        if (selectedVisual != null)
+        {
+            selectedVisual.SetActive(false);
+        }
     }
 
     public void OnReachable(PlayerUnitController controller)

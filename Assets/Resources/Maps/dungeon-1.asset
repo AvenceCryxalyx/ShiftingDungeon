@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f30d257bb3147574c9a028d915b5a155, type: 3}
+  m_Name: dungeon-1
+  m_EditorClassIdentifier: 
+  Rows: 5
+  Columns: 5
+  AssuredAreas:
+  - {fileID: 11400000, guid: 2901b4b9587fc3e45ae6ebe9e3adb940, type: 2}
+  - {fileID: 11400000, guid: eb522fb98569fa14ab32253af4c2e242, type: 2}
+  - {fileID: 11400000, guid: 4a978a60b22e38645b08568368a1f4e2, type: 2}
+  - {fileID: 11400000, guid: 1ca6d8006481c4048be1eb0cb0983944, type: 2}
+  RandomizedMapAreas:
+  - Area: {fileID: 11400000, guid: 4a978a60b22e38645b08568368a1f4e2, type: 2}
+    Weight: 15
+  - Area: {fileID: 11400000, guid: 1ca6d8006481c4048be1eb0cb0983944, type: 2}
+    Weight: 5
+  - Area: {fileID: 11400000, guid: 7b283c04756f82c4d9a7947da1c5849d, type: 2}
+    Weight: 50
+  RandomizedItems:
+  - Item: {fileID: 11400000, guid: c228731951e47a64eb09d3b844e0d061, type: 2}
+    Weight: 200
+  - Item: {fileID: 11400000, guid: ea565b4fa3ee63e4fa16c0f1d3f9c5f8, type: 2}
+    Weight: 200
+  - Item: {fileID: 11400000, guid: 825190cc9b80d0f478739fdbc646f71a, type: 2}
+    Weight: 150
+  - Item: {fileID: 11400000, guid: 52de502ac765d1b46a1df0c89c1fb02b, type: 2}
+    Weight: 100
+  - Item: {fileID: 11400000, guid: bebeaea70f633d1499a8bff18ed5bbb3, type: 2}
+    Weight: 35
+  - Item: {fileID: 11400000, guid: d2ff9839defa1b04bad0bc7d33d44c5a, type: 2}
+    Weight: 10
+  - Item: {fileID: 11400000, guid: 68fa5b93acd850642841584cb48dcb0b, type: 2}
+    Weight: 1
+  - Item: {fileID: 11400000, guid: 9715be49a5b76454eb64f049cb202ae1, type: 2}
+    Weight: 2

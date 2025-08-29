@@ -7,13 +7,22 @@ public class Inventory : MonoBehaviour
 {
     public Action<Item> EvtItemPickedUp;
     public Action<Item> EvtItemDropped;
+    public Action<Item> EvtItemRemoved;
     public Action<Item> EvtInventoryFull;
+    public Action EvtItemsUpdated;
+    [SerializeField]
+    private InventorySO inventoryData;
 
-    public int CurrentSlotCount { get { return Items.Count; } }
+    public int CurrentSlotCount { get { return items.Count; } }
     public int MaxSlotCount { get; private set; }
     public bool IsFull { get { return CurrentSlotCount >= MaxSlotCount; } }
+    public IEnumerable<Item> Items { get { return items; } }
+    protected List<Item> items = new List<Item>();
 
-    protected List<Item> Items = new List<Item>();
+    private void Awake()
+    {
+        MaxSlotCount = inventoryData.MaxSlots;
+    }
 
     public void UpdateMaxSlots(int maxCount)
     {
@@ -22,12 +31,16 @@ public class Inventory : MonoBehaviour
 
     public int AddItem(Item item)
     {
-        if(CurrentSlotCount == MaxSlotCount)
+        item = SpawnManager.instance.GetSpawn<Item>(item.gameObject);
+        if (CurrentSlotCount == MaxSlotCount)
         {
             EvtInventoryFull.Invoke(item);
             return 1;
         }
-        Items.Add(item);
+
+        items.Add(item);
+        Debug.Log(item);
+        item.transform.parent = this.transform;
 
         if(EvtItemPickedUp != null)
         {
@@ -36,43 +49,57 @@ public class Inventory : MonoBehaviour
         return 0;
     }
 
-    public Item RemoveItem(Item item)
+    public Item RemoveItem(Item item, bool wasDropped = true)
     {
-        if(Items.Contains(item))
+        if(items.Contains(item))
         {
-            Items.Remove(item);
+            items.Remove(item);
         }
-        if(EvtItemDropped != null)
+        if(EvtItemDropped != null && wasDropped)
         {
             EvtItemDropped.Invoke(item);
         }
+        else if(EvtItemRemoved != null && !wasDropped)
+        {
+            EvtItemRemoved.Invoke(item);
+        }
+        ItemsUpdated();
         return item;
     }
 
-    public void SwapItems(int index1, int index2)
+    public void ReplaceItem(Item item, Item newItem)
     {
-        if(Items.Count < index1 || Items.Count < index2 || Items.Count == 0)
+        for (int i = 0; i < items.Count; i++)
         {
-            return;
+            if (items[i] == item)
+            {
+                items[i] = newItem;
+                newItem.transform.parent = this.transform;
+            }
         }
-
-        if (Items[index1] != null && Items[index2] != null)
-        {
-            Item item = Items[index1];
-            Items[index1] = Items[index2];
-            Items[index2] = item;
-        }
+        RemoveItem(item, false);
+        Destroy(item);
+        ItemsUpdated();
     }
 
     public void ClearInventory(bool toDestroy = true)
     {
         if (toDestroy)
         {
-            foreach (Item item in Items)
+            foreach (Item item in items)
             {
                 Destroy(item);
             }
         }
-        Items.Clear();
+        items.Clear();
+        ItemsUpdated();
+    }
+
+    private void ItemsUpdated()
+    {
+        if (EvtItemsUpdated != null)
+        {
+            EvtItemsUpdated.Invoke();
+        }
     }
 }

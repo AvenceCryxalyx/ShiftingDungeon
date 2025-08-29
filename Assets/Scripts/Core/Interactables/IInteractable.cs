@@ -13,4 +13,6 @@ public interface IInteractable
     public bool IsInteractable();
     public void OnReachable(PlayerUnitController controller);
     public void OnUnreachable(PlayerUnitController controller);
+    public void OnSelected();
+    public void OnUnselected();
 }

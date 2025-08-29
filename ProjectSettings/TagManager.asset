@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - DEBUG
   layers:
   - Default
   - TransparentFX
@@ -15,10 +16,10 @@ TagManager:
   - PlayerTrigger
   - IgnoreFlooring
   - Units
-  - Items
-  - 
-  - 
-  - 
+  - Interactables
+  - MapArea
+  - NoPlayerCollision
+  - NoCollision
   - 
   - 
   - 

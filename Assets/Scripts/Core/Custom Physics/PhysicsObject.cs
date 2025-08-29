@@ -20,12 +20,14 @@ public class PhysicsObject : MonoBehaviour
     protected RaycastHit2D[] hitbuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D>(16);
     protected bool isGravityEnabled = false;
+    private bool isNormalBasedMovementEnabled = true;
 
     protected const float minMoveDistance = 0.001f;
     protected const float shellRadius = 0.01f;
     #endregion
 
     #region Properties
+    public float CurrentGravityModifier { get; private set; }
     public bool IsGrounded { get; protected set; }
     public float MoveX { get { return targetVelocity.x; } }
     public float MoveY {  get { return velocity.y; } }
@@ -53,9 +55,10 @@ public class PhysicsObject : MonoBehaviour
     #region Protected Methods
     protected void FixedUpdate()
     {
+        CurrentGravityModifier = (velocity.y < 0f) ? (gravityModifier * 3) : gravityModifier;
         if (isGravityEnabled)
         {
-            velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+            velocity += CurrentGravityModifier * Physics2D.gravity * Time.deltaTime;
         }
         else
         {
@@ -73,10 +76,8 @@ public class PhysicsObject : MonoBehaviour
 
         Movement(move, false);
 
-        if (!IsGrounded)
-        {
-            move = Vector2.up * deltaPosition.y;
-        }
+        move = Vector2.up * deltaPosition.y;
+
         Movement(move, true);
     }
 
@@ -130,6 +131,12 @@ public class PhysicsObject : MonoBehaviour
         isGravityEnabled = enable;
     }
 
+    public void SetNormalBasedMovementEnable(bool enable = true)
+    {
+        velocity = Vector2.zero;
+        isNormalBasedMovementEnabled = enable;
+    }
+
     public void ChangeLayer(int layer)
     {
         this.gameObject.layer = layer;
@@ -143,4 +150,10 @@ public class PhysicsObject : MonoBehaviour
         contactFilter.useLayerMask = true;
     }
     #endregion
+
+
+    //protected void OnDrawGizmos()
+    //{
+    //    Gizmos.DrawLine(transform.position, velocity);
+    //}
 }

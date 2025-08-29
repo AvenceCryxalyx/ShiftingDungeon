@@ -40,6 +40,7 @@ public class CameraController : MonoBehaviour
     private void Start()
     {
         cam = GetComponent<Camera>();
+        ChangeCameraMode(CameraMode.Targeted, true);
         StartFollow();
     }
 
@@ -49,6 +50,7 @@ public class CameraController : MonoBehaviour
         shouldFollowTarget = true;
         cam = Camera.main;
         TargetObject = target;
+        StartFollow();
     }
 
 
@@ -86,8 +88,11 @@ public class CameraController : MonoBehaviour
         {
             return;
         }
-        shouldFollowTarget = true;
-        cameraViewActionCor = StartCoroutine(FollowTarget());
+        if(TargetObject != null)
+        {
+            shouldFollowTarget = true;
+            cameraViewActionCor = StartCoroutine(FollowTarget());
+        }
     }
 
     public void StopFollow()

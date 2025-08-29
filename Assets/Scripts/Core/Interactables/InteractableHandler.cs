@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,11 @@ public class InteractableHandler : MonoBehaviour
 
     private int currentIndex = 0;
     private IInteractable currentSelected = null;
+
+    [SerializeField]
+    private TextMeshProUGUI interactableDisplay;
+    [SerializeField]
+    private TextMeshProUGUI switchableDisplay;
 
     private void Awake()
     {
@@ -29,6 +35,14 @@ public class InteractableHandler : MonoBehaviour
         }
     }
 
+    public void Switch(InputAction.CallbackContext context)
+    {
+        if (interactableList.Count > 1)
+        {
+            IncrementIndex();
+        }
+    }
+
     public void IncrementIndex()
     {
         if (currentIndex < interactableList.Count)
@@ -36,22 +50,29 @@ public class InteractableHandler : MonoBehaviour
             currentIndex++;
             SwitchSelected();
         }
-    }
-
-    public void DecrementIndex()
-    {
-        if (currentIndex > 0)
+        else
         {
-            currentIndex--;
+            currentIndex = 0;
             SwitchSelected();
         }
     }
 
     private void SwitchSelected()
     {
+        if(currentIndex >  interactableList.Count)
+        {
+            return;
+        }
+
+        if (currentSelected != null)
+        {
+            currentSelected.OnUnselected();
+        }
         if (currentIndex < interactableList.Count && interactableList.Count > 0)
         {
             currentSelected = interactableList[currentIndex];
+            currentSelected.OnSelected();
+            interactableDisplay.text = "[E] " + currentSelected.InteractText();
         }
     }
 
@@ -72,6 +93,13 @@ public class InteractableHandler : MonoBehaviour
         if(currentSelected == null && interactableList.Count > 0)
         {
             currentSelected = interactableList[currentIndex];
+            currentSelected.OnSelected();
+            interactableDisplay.transform.parent.gameObject.SetActive(true);
+            interactableDisplay.text = "[E] " + currentSelected.InteractText();
+        }
+        if(interactableList.Count > 1 && !switchableDisplay.transform.parent.gameObject.activeSelf)
+        {
+            switchableDisplay.transform.parent.gameObject.SetActive(true);
         }
     }
 
@@ -89,12 +117,32 @@ public class InteractableHandler : MonoBehaviour
             interactableList.Remove(interactable);
             if(currentIndex > interactableList.Count)
             {
-                currentIndex--;
-                currentSelected = (currentSelected == interactable) ? interactableList[currentIndex] : currentSelected;
+                IncrementIndex();
+                interactableDisplay.text = "[E] " + currentSelected.InteractText();
             }
             else
             {
+                interactableDisplay.transform.parent.gameObject.SetActive(false);
                 currentSelected = null;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if(currentSelected == null)
+        {
+            if(interactableList.Count > 0)
+            {
+                IncrementIndex();
+            }
+            if(interactableDisplay.transform.parent.gameObject.activeSelf)
+            {
+                interactableDisplay.transform.parent.gameObject.SetActive(false);
+            }
+            if (switchableDisplay.transform.parent.gameObject.activeSelf && interactableList.Count < 1)
+            {
+                switchableDisplay.transform.parent.gameObject.SetActive(false);
             }
         }
     }

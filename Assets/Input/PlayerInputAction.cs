@@ -154,6 +154,15 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SwitchInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""3f148cf1-2636-4e3c-a48f-d1caa783591a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -321,6 +330,17 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""VerticalMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27432ddd-fc20-4fad-8ecb-34fa129272f5"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchInteract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -364,6 +384,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Avatar_OpenSettings = m_Avatar.FindAction("OpenSettings", throwIfNotFound: true);
         m_Avatar_OpenInventory = m_Avatar.FindAction("OpenInventory", throwIfNotFound: true);
         m_Avatar_VerticalMovement = m_Avatar.FindAction("VerticalMovement", throwIfNotFound: true);
+        m_Avatar_SwitchInteract = m_Avatar.FindAction("SwitchInteract", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -455,6 +476,7 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Avatar_OpenSettings;
     private readonly InputAction m_Avatar_OpenInventory;
     private readonly InputAction m_Avatar_VerticalMovement;
+    private readonly InputAction m_Avatar_SwitchInteract;
     /// <summary>
     /// Provides access to input actions defined in input action map "Avatar".
     /// </summary>
@@ -494,6 +516,10 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Avatar/VerticalMovement".
         /// </summary>
         public InputAction @VerticalMovement => m_Wrapper.m_Avatar_VerticalMovement;
+        /// <summary>
+        /// Provides access to the underlying input action "Avatar/SwitchInteract".
+        /// </summary>
+        public InputAction @SwitchInteract => m_Wrapper.m_Avatar_SwitchInteract;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -541,6 +567,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @VerticalMovement.started += instance.OnVerticalMovement;
             @VerticalMovement.performed += instance.OnVerticalMovement;
             @VerticalMovement.canceled += instance.OnVerticalMovement;
+            @SwitchInteract.started += instance.OnSwitchInteract;
+            @SwitchInteract.performed += instance.OnSwitchInteract;
+            @SwitchInteract.canceled += instance.OnSwitchInteract;
         }
 
         /// <summary>
@@ -573,6 +602,9 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @VerticalMovement.started -= instance.OnVerticalMovement;
             @VerticalMovement.performed -= instance.OnVerticalMovement;
             @VerticalMovement.canceled -= instance.OnVerticalMovement;
+            @SwitchInteract.started -= instance.OnSwitchInteract;
+            @SwitchInteract.performed -= instance.OnSwitchInteract;
+            @SwitchInteract.canceled -= instance.OnSwitchInteract;
         }
 
         /// <summary>
@@ -758,6 +790,13 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnVerticalMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SwitchInteract" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSwitchInteract(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

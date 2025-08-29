@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b22a7d8c44d686940bb616de35c19c2e, type: 3}
+  m_Name: i_so_purple_gem
+  m_EditorClassIdentifier: 
+  Name: Purple Gem
+  Description: A purple gem
+  BaseValue: 50
+  Sprite: {fileID: -2742122992267559303, guid: 856401617ccf7214083e6b1dc17a508f, type: 3}
+  Type: 2
+  Rarity: 0
+  OverridePrefab: {fileID: 0}

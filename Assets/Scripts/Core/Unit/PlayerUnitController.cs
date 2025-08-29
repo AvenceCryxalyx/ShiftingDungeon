@@ -17,6 +17,7 @@ public class PlayerUnitController : UnitController
 
     #region
     public Action<InputAction.CallbackContext> EvtInteract { get; set;}
+    public Action<InputAction.CallbackContext> EvtSwitch { get; set; }
     #endregion
 
     #region Fields
@@ -28,35 +29,50 @@ public class PlayerUnitController : UnitController
     protected InputAction jumpAction;
     protected InputAction sprintAction;
     protected InputAction interactAction;
+    protected InputAction switchInterAction;
     #endregion
 
     #region Unity Methods
-    protected override void Awake()
+    protected override void Start()
     {
-        base.Awake();
-        playerInput = new PlayerInputAction();
+        base.Start();
+        Player.instance.RegisterUnit(this);
+    }
+
+    public void Initialize(PlayerInputAction inputs)
+    {
+        playerInput = inputs;
         horizontalMoveAction = playerInput.Avatar.HorizontalMovement;
         verticalMoveAction = playerInput.Avatar.VerticalMovement;
         jumpAction = playerInput.Avatar.Jump;
         sprintAction = playerInput.Avatar.Sprint;
         interactAction = playerInput.Avatar.Interact;
+        switchInterAction = playerInput.Avatar.SwitchInteract;
         jumpAction.performed += OnJumpButtonDown;
         jumpAction.canceled += OnJumpButtonUp;
         sprintAction.performed += OnSprintButtonDown;
-        sprintAction.canceled += OnSprintButtonUp;
+        //sprintAction.canceled += OnSprintButtonUp;
         interactAction.performed += OnInteract;
+        switchInterAction.performed += OnSwitch;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        DisableInputs();
+        if (playerInput != null)
+        {
+            DisableInputs();
+        }
     }
 
     protected override void OnEnable()
     {
         base.OnEnable();
-        EnableInputs();
+        if(playerInput != null)
+        {
+            EnableInputs();
+        }
+        
     }
 
     protected override void Update()
@@ -104,6 +120,12 @@ public class PlayerUnitController : UnitController
 
         UpdateStateChanges(newState);
     }
+
+    protected override void OnGrounded()
+    {
+        base.OnGrounded();
+        ChangeState(UnitState.OnGround);
+    }
     #endregion
 
     #region Public Methods
@@ -114,6 +136,7 @@ public class PlayerUnitController : UnitController
         jumpAction.Enable();
         interactAction.Enable();
         sprintAction.Enable();
+        switchInterAction.Enable();
     }
 
     public void DisableInputs()
@@ -123,7 +146,7 @@ public class PlayerUnitController : UnitController
         jumpAction.Disable();
         interactAction.Disable();
         sprintAction.Disable();
-
+        switchInterAction.Disable();
     }
     #endregion
 
@@ -147,18 +170,33 @@ public class PlayerUnitController : UnitController
 
     private void OnSprintButtonDown(InputAction.CallbackContext context)
     {
-        SpeedModifier = 2;
+        if(SpeedModifier > 1)
+        {
+            SpeedModifier = 1;
+        }
+        else
+        {
+            SpeedModifier = 2;
+        }
     }
-    private void OnSprintButtonUp(InputAction.CallbackContext context)
-    {
-        SpeedModifier = 1;
-    }
+    //private void OnSprintButtonUp(InputAction.CallbackContext context)
+    //{
+    //    SpeedModifier = 1;
+    //}
 
     private void OnInteract(InputAction.CallbackContext context)
     {
         if(EvtInteract != null)
         {
             EvtInteract.Invoke(context);
+        }
+    }
+
+    private void OnSwitch(InputAction.CallbackContext context)
+    {
+        if (EvtSwitch != null)
+        {
+            EvtSwitch.Invoke(context);
         }
     }
 
@@ -170,17 +208,14 @@ public class PlayerUnitController : UnitController
                 horizontalMoveAction.Enable();
                 verticalMoveAction.Disable();
                 jumpAction.Enable();
-                sprintAction.Enable();
                 interactAction.Enable();
                 break;
             case UnitState.InAir:
-                sprintAction.Disable();
                 break;
             case UnitState.OnLadder:
                 horizontalMoveAction.Disable();
                 verticalMoveAction.Enable();
                 jumpAction.Disable();
-                sprintAction.Disable();
                 SetGravityEnable(false);
                 velocity = Vector2.zero;
                 break;

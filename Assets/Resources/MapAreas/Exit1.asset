@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1fa921f5350c6438f31ff4d69dfa36, type: 3}
+  m_Name: Exit1
+  m_EditorClassIdentifier: 
+  Id: exit-room-1
+  IsRequired: 0
+  Type: 5
+  PerRowRequirement: 0
+  PerColumnRequirement: 0
+  AmountRequired: 1
+  MaxSpawnedAmount: 1
+  Prefab: {fileID: 2113218482074900865, guid: 8d86a060cb1b7064b8e8c2e81c31da9c, type: 3}
+  hasSpecifics: 0
+  CoordinateX: -1
+  CoordinateY: -1
+  shouldBeMiddle: 0
+  hasRestrictions: 1
+  IsRowLocked: 0
+  IsColumnLocked: 0
+  IsPositionLocked: 1
+  IsTopRowRestricted: 0
+  IsBottomRowRestricted: 0
+  IsLeftColRestricted: 0
+  IsRightColRestricted: 0

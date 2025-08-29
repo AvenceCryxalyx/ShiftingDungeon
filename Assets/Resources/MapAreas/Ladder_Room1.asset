@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf1fa921f5350c6438f31ff4d69dfa36, type: 3}
+  m_Name: Ladder_Room1
+  m_EditorClassIdentifier: 
+  Id: ladder-room-1
+  IsRequired: 0
+  Type: 2
+  AmountRequired: 0
+  MaxSpawnedAmount: 0
+  Prefab: {fileID: 5787090693568333292, guid: 308cf4c01daf2d14dbdcd9e1b9db2d7f, type: 3}
+  hasSpecifics: 0
+  CoordinateX: -1
+  CoordinateY: -1
+  PerRowRequirement: 0
+  PerColumnRequirement: 0
+  shouldBeMiddle: 0
+  hasRestrictions: 1
+  IsRowLocked: 0
+  IsColumnLocked: 0
+  IsPositionLocked: 0
+  IsTopRowRestricted: 0
+  IsBottomRowRestricted: 1
+  IsLeftColRestricted: 0
+  IsRightColRestricted: 0

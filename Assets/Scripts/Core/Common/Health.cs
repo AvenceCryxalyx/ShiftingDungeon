@@ -11,6 +11,12 @@ public class Health
     public bool IsInvulnerable { get; private set; }
     #endregion
 
+    public Health(int baseValue, int maxValue)
+    {
+        MaxValue = maxValue;
+        CurrentValue = baseValue;
+    }
+
     #region Events
     public Action<Health, int> OnHeal;
     public Action<Health, int> OnDamageTaken;

@@ -6,9 +6,9 @@ public class ModValue
 {
     public ModValue(int baseValue, float addMod, float multMod)
     {
-        BaseValue = baseValue;
+        Base = baseValue;
         AddMod = addMod;
-        MultMod = multMod;
+        MultMod = 1f + multMod;
         UpdateCurrent();
     }
 
@@ -17,8 +17,8 @@ public class ModValue
     #endregion
 
     #region Properties
-    public int CurrentValue { get; protected set; }
-    public int BaseValue { get; protected set; }
+    public int Current { get; protected set; }
+    public int Base { get; protected set; }
     public float AddMod { get; protected set; }
     public float MultMod {  get; protected set; }
     #endregion
@@ -29,7 +29,7 @@ public class ModValue
         UpdateCurrent();
     }
 
-    public void RemoveFlatValue(float value)
+    public void ReduceFlatValue(float value)
     {
         AddMod -= value;
         UpdateCurrent();
@@ -41,7 +41,7 @@ public class ModValue
         UpdateCurrent();
     }
 
-    public void RemoveMultValue(float value)
+    public void ReduceMultValue(float value)
     {
         MultMod -= value;
         UpdateCurrent();
@@ -49,15 +49,15 @@ public class ModValue
 
     protected void UpdateCurrent()
     {
-        int newValue = (int)((BaseValue * MultMod) + AddMod);
-        if(CurrentValue == newValue)
+        int newValue = (int)((Base * MultMod) + AddMod);
+        if(Current == newValue)
         {
             return;
         }
         if(EvtValueChanged != null)
         {
-            EvtValueChanged.Invoke(CurrentValue, newValue);
+            EvtValueChanged.Invoke(Current, newValue);
         }
-        CurrentValue = newValue;
+        Current = newValue;
     }
 }

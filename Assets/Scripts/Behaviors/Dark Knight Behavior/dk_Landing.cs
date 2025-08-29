@@ -7,7 +7,6 @@ public class dk_Landing : StateMachineBehaviour
     { 
         PlayerUnitController controller = animator.GetComponentInParent<PlayerUnitController>();
         controller.DisableInputs();
-        
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

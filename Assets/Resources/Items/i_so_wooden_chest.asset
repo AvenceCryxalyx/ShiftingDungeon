@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd081849757dd624cb2870771a2b9d3b, type: 3}
+  m_Name: i_so_wooden_chest
+  m_EditorClassIdentifier: 
+  Name: Wooden Chest
+  Description: A chest made of wood filled with Treasure (Locked)
+  BaseValue: 25
+  Sprite: {fileID: 21300000, guid: 7d68cfffaf85ed24996dbfcdf528179c, type: 3}
+  Type: 2
+  Rarity: 0
+  OverridePrefab: {fileID: 4892838820979060753, guid: 928702c7ae9d4af4fa0981604cefb70a, type: 3}
+  Key: {fileID: 11400000, guid: 52de502ac765d1b46a1df0c89c1fb02b, type: 2}
+  OpenedItem: {fileID: 11400000, guid: 7aae55e60f8c8a349817a04c9a689d2e, type: 2}

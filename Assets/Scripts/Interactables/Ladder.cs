@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.Rendering.Universal;
 using static Unity.VisualScripting.Member;
 
 public class Ladder : MonoBehaviour, IInteractable
 {
     private bool inUse = false;
     private bool canInteract = false;
+    [SerializeField]
+    private ShadowCasterGroup2D shadowCaster;
 
     public int Interact(PlayerUnitController controller)
     {
@@ -31,11 +34,16 @@ public class Ladder : MonoBehaviour, IInteractable
         controller.GetComponent<Collider2D>().enabled = false;
         controller.GetComponent<Collider2D>().enabled = true;
         controller.Avatar.SetBool("onLadder", true);
-        controller.transform.localPosition = new Vector2(this.transform.localPosition.x, controller.transform.position.y);
+        controller.transform.localPosition = new Vector2(this.transform.localPosition.x, controller.transform.localPosition.y);
         controller.SetXMovementEnable(false);
         controller.SetYMovementEnable(true);
         controller.SetGravityEnable(false);
         inUse = true;
+        if(shadowCaster)
+        {
+            shadowCaster.enabled = false;
+        }
+        
     }
 
     public void GetOff(PlayerUnitController controller, bool forced)
@@ -52,6 +60,10 @@ public class Ladder : MonoBehaviour, IInteractable
         controller.SetYMovementEnable(false);
         controller.SetGravityEnable(true);
         inUse = false;
+        if (shadowCaster)
+        {
+            shadowCaster.enabled = true;
+        }
     }
     public string InteractText()
     {
@@ -75,5 +87,15 @@ public class Ladder : MonoBehaviour, IInteractable
         {
             GetOff(controller, true);
         }
+    }
+
+    public void OnSelected()
+    {
+        
+    }
+
+    public void OnUnselected()
+    {
+        
     }
 }
