@@ -66,11 +66,13 @@ public class ResultHandler : MonoBehaviour
 
     public void ProceedToNext()
     {
+        Debug.Log("Trigger");
         AppInstance.LoadGameMode("DungeonScene");
     }
 
     public void ReturnToMain()
     {
+        Debug.Log("Trigger");
         AppInstance.LoadFirstMode();
     }
 }

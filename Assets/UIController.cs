@@ -9,7 +9,15 @@ public class UIController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            InventoryUI.gameObject.SetActive(!InventoryUI.activeSelf);
+            if(!InventoryUI.activeSelf)
+            {
+                Player.instance.PausedInputs();
+            }
+            else
+            {
+                Player.instance.ResumeInputs();
+            }
+                InventoryUI.gameObject.SetActive(!InventoryUI.activeSelf);
         }
     }
 }

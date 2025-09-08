@@ -21,6 +21,7 @@ public class InteractableHandler : MonoBehaviour
     {
         controller = GetComponentInParent<PlayerUnitController>();
         controller.EvtInteract += Interact;
+        controller.EvtSwitch += Switch;
     }
 
     public void Interact(InputAction.CallbackContext context)
@@ -72,7 +73,7 @@ public class InteractableHandler : MonoBehaviour
         {
             currentSelected = interactableList[currentIndex];
             currentSelected.OnSelected();
-            interactableDisplay.text = "[E] " + currentSelected.InteractText();
+            interactableDisplay.text = "[E] " + currentSelected.InteractText;
         }
     }
 
@@ -94,8 +95,7 @@ public class InteractableHandler : MonoBehaviour
         {
             currentSelected = interactableList[currentIndex];
             currentSelected.OnSelected();
-            interactableDisplay.transform.parent.gameObject.SetActive(true);
-            interactableDisplay.text = "[E] " + currentSelected.InteractText();
+            interactableDisplay.text = "[E] " + currentSelected.InteractText;
         }
         if(interactableList.Count > 1 && !switchableDisplay.transform.parent.gameObject.activeSelf)
         {
@@ -118,11 +118,10 @@ public class InteractableHandler : MonoBehaviour
             if(currentIndex > interactableList.Count)
             {
                 IncrementIndex();
-                interactableDisplay.text = "[E] " + currentSelected.InteractText();
+                interactableDisplay.text = "[E] " + currentSelected.InteractText;
             }
             else
             {
-                interactableDisplay.transform.parent.gameObject.SetActive(false);
                 currentSelected = null;
             }
         }
@@ -144,6 +143,14 @@ public class InteractableHandler : MonoBehaviour
             {
                 switchableDisplay.transform.parent.gameObject.SetActive(false);
             }
+        }
+        else
+        {
+            if(interactableList.Count > 0)
+            {
+                switchableDisplay.gameObject.SetActive(true);
+            }
+            interactableDisplay.gameObject.SetActive(true);
         }
     }
 }

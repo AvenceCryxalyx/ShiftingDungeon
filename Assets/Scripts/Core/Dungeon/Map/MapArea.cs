@@ -49,7 +49,7 @@ public class MapArea : MonoBehaviour
         }
 
         //childObjects = GetComponentsInChildren<GameObject>().ToList();
-        DungeonMaster.instance.Map.Register(this);
+        DungeonMode.Master.Map.Register(this);
         layer = gameObject.layer;
     }
 

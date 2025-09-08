@@ -5,14 +5,22 @@ using static Unity.VisualScripting.Member;
 
 public class Ladder : MonoBehaviour, IInteractable
 {
-    private bool inUse = false;
-    private bool canInteract = false;
+
     [SerializeField]
     private ShadowCasterGroup2D shadowCaster;
+    [SerializeField]
+    private MovementRestriction restriction;
+    private PlayerUnitController currentUser;
+    private bool inUse = false;
+
+    #region Properties
+    public bool IsInteractable { get; private set; }
+    public string InteractText { get { return "Use Ladder"; } }
+    #endregion
 
     public int Interact(PlayerUnitController controller)
     {
-        if(!IsInteractable())
+        if(!IsInteractable)
         {
             return 1;
         }
@@ -38,6 +46,7 @@ public class Ladder : MonoBehaviour, IInteractable
         controller.SetXMovementEnable(false);
         controller.SetYMovementEnable(true);
         controller.SetGravityEnable(false);
+        currentUser = controller;
         inUse = true;
         if(shadowCaster)
         {
@@ -59,30 +68,22 @@ public class Ladder : MonoBehaviour, IInteractable
         controller.SetXMovementEnable(true);
         controller.SetYMovementEnable(false);
         controller.SetGravityEnable(true);
+        currentUser = null;
         inUse = false;
         if (shadowCaster)
         {
             shadowCaster.enabled = true;
         }
     }
-    public string InteractText()
-    {
-        return "Climb";
-    }
-
-    public bool IsInteractable()
-    {
-        return canInteract;
-    }
 
     public void OnReachable(PlayerUnitController controller)
     {
-        canInteract = true;
+        IsInteractable = true;
     }
 
     public void OnUnreachable(PlayerUnitController controller)
     {
-        canInteract = false;
+        IsInteractable = false;
         if (inUse)
         {
             GetOff(controller, true);
@@ -97,5 +98,24 @@ public class Ladder : MonoBehaviour, IInteractable
     public void OnUnselected()
     {
         
+    }
+
+    private void Update()
+    {
+        if(!inUse)
+        {
+            return;
+        }
+
+        if((currentUser.InputY < 0 && currentUser.transform.localPosition.y < restriction.MinY) ||
+            currentUser.InputY > 0 && currentUser.transform.localPosition.x > restriction.MaxY)
+        {
+            GetOff(currentUser, true);
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(new Vector3(restriction.MinX, restriction.MinY), new Vector3(restriction.MaxX, restriction.MaxY));
     }
 }

@@ -23,7 +23,7 @@ MonoBehaviour:
   - Area: {fileID: 11400000, guid: 4a978a60b22e38645b08568368a1f4e2, type: 2}
     Weight: 15
   - Area: {fileID: 11400000, guid: 1ca6d8006481c4048be1eb0cb0983944, type: 2}
-    Weight: 5
+    Weight: 100
   - Area: {fileID: 11400000, guid: 7b283c04756f82c4d9a7947da1c5849d, type: 2}
     Weight: 50
   RandomizedItems:

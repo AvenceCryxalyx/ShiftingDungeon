@@ -108,6 +108,10 @@ public class CameraController : MonoBehaviour
     {
         while (true)
         {
+            if(TargetObject == null)
+            {
+                break;
+            }
             Vector3 newPos = new Vector3(TargetObject.transform.position.x + settings[0].Offset[0].x, TargetObject.transform.position.y + settings[0].Offset[0].y, cam.transform.position.z);
             transform.position = Vector3.Slerp(transform.position, newPos, cameraFollowSpeed * Time.deltaTime);
             if (!shouldFollowTarget)

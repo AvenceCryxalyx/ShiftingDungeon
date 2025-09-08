@@ -1,28 +1,22 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerUnitController : UnitController
 {
     #region Inspector Fields
     [SerializeField]
     protected float jumpPower = 6f;
-    [SerializeField]
-    protected float airBourneMovementModifier = 0.75f;
-    [SerializeField]
-    protected float velocityLingerTime = 20f;
     #endregion
 
     #region
     public Action<InputAction.CallbackContext> EvtInteract { get; set;}
     public Action<InputAction.CallbackContext> EvtSwitch { get; set; }
+    public Action<InputAction.CallbackContext> EvtJumped { get; set; }
     #endregion
 
     #region Fields
     protected int jumpCount;
-    protected float horizontalMove;
     protected PlayerInputAction playerInput;
     protected InputAction horizontalMoveAction;
     protected InputAction verticalMoveAction;
@@ -37,6 +31,7 @@ public class PlayerUnitController : UnitController
     {
         base.Start();
         Player.instance.RegisterUnit(this);
+        Health = Player.instance.Health;
     }
 
     public void Initialize(PlayerInputAction inputs)
@@ -51,7 +46,6 @@ public class PlayerUnitController : UnitController
         jumpAction.performed += OnJumpButtonDown;
         jumpAction.canceled += OnJumpButtonUp;
         sprintAction.performed += OnSprintButtonDown;
-        //sprintAction.canceled += OnSprintButtonUp;
         interactAction.performed += OnInteract;
         switchInterAction.performed += OnSwitch;
     }
@@ -72,7 +66,6 @@ public class PlayerUnitController : UnitController
         {
             EnableInputs();
         }
-        
     }
 
     protected override void Update()
@@ -158,18 +151,28 @@ public class PlayerUnitController : UnitController
             velocity.y = jumpPower;
             Avatar.SetTrigger("Jump");
         }
+        if (EvtJumped != null)
+        {
+            EvtJumped.Invoke(context);
+        }
     }
 
     private void OnJumpButtonUp(InputAction.CallbackContext context)
     {
+        Debug.Log(context.performed);
         if (velocity.y > 0f)
         {
             velocity.y = velocity.y * 0.5f;
+        }
+        if (EvtJumped != null)
+        {
+            EvtJumped.Invoke(context);
         }
     }
 
     private void OnSprintButtonDown(InputAction.CallbackContext context)
     {
+        Debug.Log(context.performed);
         if(SpeedModifier > 1)
         {
             SpeedModifier = 1;
@@ -205,16 +208,16 @@ public class PlayerUnitController : UnitController
         switch (newState)
         {
             case UnitState.OnGround:
-                horizontalMoveAction.Enable();
-                verticalMoveAction.Disable();
+                SetXMovementEnable(true);
+                SetYMovementEnable(false);
                 jumpAction.Enable();
                 interactAction.Enable();
                 break;
             case UnitState.InAir:
                 break;
             case UnitState.OnLadder:
-                horizontalMoveAction.Disable();
-                verticalMoveAction.Enable();
+                SetXMovementEnable(false);
+                SetYMovementEnable(true);
                 jumpAction.Disable();
                 SetGravityEnable(false);
                 velocity = Vector2.zero;

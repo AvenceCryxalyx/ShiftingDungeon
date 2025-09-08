@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class DungeonMaster : SimpleSingleton<DungeonMaster>
+public class DungeonMaster : MonoBehaviour
 {
     protected List<UnitController> monsters = new List<UnitController>();
 
@@ -21,12 +21,13 @@ public class DungeonMaster : SimpleSingleton<DungeonMaster>
     private MapSO currentMapSO;
     private Dictionary<string, MapAreaSO> areaList = new Dictionary<string, MapAreaSO>();
     private Dictionary<string, ItemDataSO> itemsList = new Dictionary<string, ItemDataSO>();
-    protected override void Awake()
+
+    protected void Awake()
     {
-        base.Awake();
         dungeonMapLists = Resources.LoadAll<MapSO>("Maps").ToList();
     }
 
+    #region Public Methods
     public IEnumerator InitializeDungeon(bool randomizedMap = true, MapSO selectedMap = null)
     {
         if(randomizedMap || selectedMap == null)
@@ -62,6 +63,7 @@ public class DungeonMaster : SimpleSingleton<DungeonMaster>
             }
             yield return StartCoroutine(InstantiateMapAreas());
             yield return StartCoroutine(Map.PositionMapAreas());
+            Map.LoadAllAreas();
             yield return new WaitUntil(() => Map.IsInitialized);
         }
         yield return null;
@@ -94,7 +96,16 @@ public class DungeonMaster : SimpleSingleton<DungeonMaster>
 
     public void UnloadDungeon()
     {
+        areaList.Clear();
+        itemsList.Clear();
         Map.OnUnloadMap();
         Map = null;
     }
+
+    public Vector2[] GetPatrolPosition(StateController stateCon)
+    {
+        UnitController unit = stateCon.Unit;
+        return null;
+    }
+    #endregion
 }

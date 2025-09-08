@@ -33,12 +33,12 @@ public class TreasureRoom : SpawnRoom
     public override void Unload()
     {
         base.Unload();
-        foreach(InteractableItem item in drops)
+        foreach (InteractableItem item in drops)
         {
-            //if(item)
-            //{
-            //    item.PoolOrDestroy();
-            //}
+            if (item)
+            {
+                item.PoolOrDestroy();
+            }
         }
         drops.Clear();
     }
@@ -51,14 +51,24 @@ public class TreasureRoom : SpawnRoom
             spawnAmount = UnityEngine.Random.Range(minSpawn, maxSpawn);
         }
 
-        foreach (string id in DungeonMaster.instance.ItemSpawnGacha.PullMultiple(spawnAmount))
+        foreach (string id in DungeonMode.Master.ItemSpawnGacha.PullMultiple(spawnAmount))
         {
             Item item = ItemManager.instance.GetItem(id);
             InteractableItem drop = dropObjectsList.GetDropItem(item.Rarity);
             drop.transform.SetParent(this.transform);
             drop.SetItem(item);
+            drop.EvtOnTaken += OnInteractableActiveChange;
             Spawn(drop.gameObject);
             drops.Add(drop);
+        }
+    }
+
+    private void OnInteractableActiveChange(InteractableItem drop)
+    {
+        if(!drop.gameObject.activeSelf)
+        {
+            drops.Remove(drop);
+            drop.EvtOnTaken -= OnInteractableActiveChange;
         }
     }
 }

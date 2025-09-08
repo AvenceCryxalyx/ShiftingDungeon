@@ -31,10 +31,12 @@ public class Inventory : MonoBehaviour
 
     public int AddItem(Item item)
     {
-        item = SpawnManager.instance.GetSpawn<Item>(item.gameObject);
         if (CurrentSlotCount == MaxSlotCount)
         {
-            EvtInventoryFull.Invoke(item);
+            if(EvtInventoryFull != null)
+            {
+                EvtInventoryFull.Invoke(item);
+            }
             return 1;
         }
 
@@ -78,7 +80,7 @@ public class Inventory : MonoBehaviour
             }
         }
         RemoveItem(item, false);
-        Destroy(item);
+        item.PoolOrDestroy();
         ItemsUpdated();
     }
 
@@ -88,7 +90,7 @@ public class Inventory : MonoBehaviour
         {
             foreach (Item item in items)
             {
-                Destroy(item);
+                item.PoolOrDestroy();
             }
         }
         items.Clear();

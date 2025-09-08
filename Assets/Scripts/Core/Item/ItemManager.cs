@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using System.Xml.Linq;
+using UnityEngine;
 
 public class ItemManager : SimpleSingleton<ItemManager>
 {
@@ -63,21 +64,21 @@ public class ItemManager : SimpleSingleton<ItemManager>
         return itemDatas.Where(x => rarity.Equals(x.Rarity)).ToList();
     }
 
-    public Item GetItem(string name, bool shouldBeInstance = false)
+    public Item GetItem(string name, bool shouldBeInstance = true)
     {
+        ItemDataSO so = itemDatas.FirstOrDefault(x => x.name == name);
+
         if (shouldBeInstance)
         {
-            ItemDataSO so = itemDatas.FirstOrDefault(x => x.name == name);
-
             if(so == null)
             {
                 Debug.LogError("Can't find item: " + name);
             }
 
-            Item item = Instantiate(allItems.FirstOrDefault(x => x.Name == so.Name), this.transform);
+            Item item = Instantiate(allItems.FirstOrDefault(x => x.Name == so.Name), transform);
             item.Initialize(so);
             return item;
         }
-        return allItems.FirstOrDefault(x => x.Name == name);
+        return allItems.FirstOrDefault(x => x.Name == so.Name);
     }
 }

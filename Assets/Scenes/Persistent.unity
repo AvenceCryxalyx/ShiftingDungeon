@@ -3210,6 +3210,34 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[4].Buffer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[4].Prefab
+      value: 
+      objectReference: {fileID: -3245346097488379293, guid: 928702c7ae9d4af4fa0981604cefb70a, type: 3}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[5].Buffer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[5].Prefab
+      value: 
+      objectReference: {fileID: 2952036148328734828, guid: 6c21818de31c34b4ca04d8e472d8d09d, type: 3}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[6].Buffer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2334538219122407948, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
+      propertyPath: PreconfiguredPoolList.Array.data[6].Prefab
+      value: 
+      objectReference: {fileID: -2297000812014306432, guid: d099fcdce97233d48a9c594e494871d2, type: 3}
     - target: {fileID: 5991462258480336430, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
       propertyPath: m_LocalPosition.x
       value: 193.31183
@@ -3256,7 +3284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6661262353110535315, guid: 501a0ec08c4dd9b4191ed7472a91ad29, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

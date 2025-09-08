@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Linq;
 
 [Serializable]
 public class Timer
@@ -16,23 +17,33 @@ public class Timer
         }
     }
 
-    private bool isActive = false;
+    public bool IsActive { get; private set; }
     private float triggerTime;
     private float _timeElapsed;
+    private bool isRegistered;
+
     public Timer(float triggerTime)
     {
         this.triggerTime = triggerTime;
-        TimeManager.instance.RegisterTimer(this);
     }
 
     ~Timer()
     {
-        TimeManager.instance.RemoveTimer(this);
+        if(isRegistered)
+        {
+            Stop();
+        }
     }
 
     public void Start()
     {
-        isActive = true;
+        if (TimeManager.instance && !isRegistered)
+        {
+            TimeManager.instance.RegisterTimer(this);
+            isRegistered = true;
+        }
+        Reset();
+        IsActive = true;
     }
 
     private void OnTimeUp()
@@ -41,12 +52,28 @@ public class Timer
         {
             EvtTimerUp.Invoke();
         }
-        isActive = false;
+        Stop();
+    }
+
+    public void Pause()
+    {
+        IsActive = false;
+    }
+
+    public void Resume()
+    {
+        IsActive = true;
     }
 
     public void Stop()
     {
-        isActive = false;
+        if(!isRegistered || !IsActive)
+        {
+            return;
+        }
+        TimeManager.instance.RemoveTimer(this);
+        isRegistered = false;
+        IsActive = false;
         Reset();
     }
 
@@ -62,7 +89,7 @@ public class Timer
     }
     public void Tick(float timeTicked)
     {
-        if (!isActive)
+        if (!IsActive || !isRegistered)
             return;
         _timeElapsed += timeTicked;
         if(EvtTicked != null)
@@ -119,7 +146,7 @@ public class TimeManager : SimpleSingleton<TimeManager>
     private void Update()
     {
         TimeElapsed += Time.deltaTime;
-        foreach(Timer timer in registeredTimers)
+        foreach(Timer timer in registeredTimers.Where(x => x.IsActive))
         {
             timer.Tick(Time.deltaTime);
         }

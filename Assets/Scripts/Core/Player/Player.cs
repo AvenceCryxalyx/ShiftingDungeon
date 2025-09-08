@@ -6,17 +6,16 @@ public class Player : SimpleSingleton<Player>
     private PlayerUnitController UnitPrefab;
 
     public PlayerInputAction Inputs { get; protected set; }
-    public Health Health { get; protected set; }
     public PlayerUnitController Unit { get; protected set; }
+    public Health Health { get; protected set; }
     public Inventory Inventory { get; protected set; }
     //public Currency Wallet { get; protected set; }
     protected override void Awake()
     {
         base.Awake();
         Inventory = GetComponentInChildren<Inventory>();
-        //Wallet = GetComponentInChildren<Currency>();
-        Health = new Health(1, 100);
         Inputs = new PlayerInputAction();
+        Health = GetComponentInChildren<Health>();
     }
 
     public void RegisterUnit(PlayerUnitController controller)
@@ -28,5 +27,15 @@ public class Player : SimpleSingleton<Player>
         }
         Unit = controller;
         Unit.Initialize(Inputs);
+    }
+
+    public void PausedInputs()
+    {
+        Inputs.Disable();
+    }
+
+    public void ResumeInputs()
+    {
+        Inputs.Enable();
     }
 }

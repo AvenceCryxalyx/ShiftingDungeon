@@ -308,7 +308,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 24
   m_Sprite: {fileID: 4723107735738678597, guid: a10cdd8fe09df924ea9b884ce1f51dac, type: 3}
-  m_Color: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -541,10 +541,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   gravityModifier: 1
-  defaultMoveSpeed: 4
+  defaultMoveSpeed: 8
   jumpPower: 8
-  airBourneMovementModifier: 0.75
-  velocityLingerTime: 20
 --- !u!1 &2288175287866449196
 GameObject:
   m_ObjectHideFlags: 0

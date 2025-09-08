@@ -1,7 +1,7 @@
 using UnityEngine;
 using Sirenix.OdinInspector;
 
-[CreateAssetMenu(fileName = "MapAreaSO", menuName = "Scriptable Objects/MapAreaSO")]
+[CreateAssetMenu(fileName = "MapAreaSO", menuName = "Scriptable Objects/Maps/MapAreaSO")]
 
 public class MapAreaSO : ScriptableObject
 {
@@ -28,8 +28,8 @@ public class MapAreaSO : ScriptableObject
     [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public int CoordinateY = -1;
     [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public bool PerRowRequirement;
     [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public bool PerColumnRequirement;
-    //[BoxGroup("Specifics"), ShowIf("hasSpecifics")] public int specificRow = -1;
-    //[BoxGroup("Specifics"), ShowIf("hasSpecifics")] public int specificColumn = -1;
+    [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public int SpecificRow = -1;
+    [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public int SpecificColumn = -1;
     [BoxGroup("Specifics"), ShowIf("hasSpecifics")] public bool shouldBeMiddle = false;
  
     [BoxGroup("Restrictions")] public bool hasRestrictions = false;

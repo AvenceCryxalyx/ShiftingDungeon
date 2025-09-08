@@ -48,10 +48,6 @@ public class DraggableItemImage : MonoBehaviour, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (EvtDragEnd != null)
-        {
-            EvtDragEnd.Invoke(-1);
-        }
         transform.SetParent(ParentAfterDrag);
         image.raycastTarget = true;
     }

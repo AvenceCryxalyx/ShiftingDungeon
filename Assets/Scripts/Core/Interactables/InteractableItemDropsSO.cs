@@ -16,6 +16,6 @@ public class InteractableItemDropsSO : ScriptableObject
 
     public InteractableItem GetDropItem(Item.ItemRarity rarity)
     {
-        return Instantiate(RarityDropLists[(int)rarity].DropItem);
+        return SpawnManager.instance.GetSpawn<InteractableItem>(RarityDropLists[(int)rarity].DropItem.gameObject);
     }
 }

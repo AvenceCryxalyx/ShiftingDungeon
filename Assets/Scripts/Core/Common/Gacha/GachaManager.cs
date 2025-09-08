@@ -47,12 +47,12 @@ public class Gacha
     {
         if (!isInitialized) return null;
 
-        var randomValues = new NativeArray<float>(1, Allocator.TempJob);
-        var selectedIds = new NativeArray<int>(1, Allocator.TempJob);
+        NativeArray<float> randomValues = new NativeArray<float>(1, Allocator.TempJob);
+        NativeArray<int> selectedIds = new NativeArray<int>(1, Allocator.TempJob);
 
         randomValues[0] = UnityEngine.Random.Range(0f, cumulativeWeights[cumulativeWeights.Length - 1]);
 
-        var job = new WeightedGachaSingle
+        WeightedGachaSingle job = new WeightedGachaSingle
         {
             cumulativeWeights = cumulativeWeights,
             itemIds = itemIds,
@@ -60,7 +60,7 @@ public class Gacha
             selectedItemIds = selectedIds
         };
 
-        var handle = job.Schedule();
+        JobHandle handle = job.Schedule();
         handle.Complete();
 
         int selectedId = selectedIds[0];
@@ -77,10 +77,10 @@ public class Gacha
     {
         if (!isInitialized) return new List<string>();
 
-        var selectedIds = new NativeArray<int>(count, Allocator.TempJob);
+        NativeArray<int> selectedIds = new NativeArray<int>(count, Allocator.TempJob);
         uint seed = (uint)UnityEngine.Random.Range(1, int.MaxValue);
 
-        var batchJob = new WeightedGachaMultiple
+        WeightedGachaMultiple batchJob = new WeightedGachaMultiple
         {
             cumulativeWeights = cumulativeWeights,
             itemIds = itemIds,
@@ -88,10 +88,10 @@ public class Gacha
             selectedItemIds = selectedIds
         };
 
-        var handle = batchJob.Schedule(count, 64); // Process in batches of 64
+        JobHandle handle = batchJob.Schedule(count, 64); // Process in batches of 64
         handle.Complete();
 
-        var results = new List<string>(count);
+        List<string> results = new List<string>(count);
         for (int i = 0; i < count; i++)
         {
             results.Add(itemIdToResultId[selectedIds[i]]);

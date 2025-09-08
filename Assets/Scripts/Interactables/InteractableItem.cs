@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using System;
 
 public class InteractableItem : MonoBehaviour, IInteractable
 {
@@ -13,7 +14,11 @@ public class InteractableItem : MonoBehaviour, IInteractable
     [SerializeField]
     private GameObject selectedVisual;
 
-    private bool canPickup = false;
+    #region Properties
+    public bool IsInteractable { get; protected set; }
+    public string InteractText { get { return "Pick up"; } }
+    #endregion
+    public Action<InteractableItem> EvtOnTaken;
 
     public void SetItem(Item item)
     {
@@ -28,9 +33,9 @@ public class InteractableItem : MonoBehaviour, IInteractable
         }
     }
 
-    public string InteractText()
+    private void OnDisable()
     {
-        return "Pick up";
+        item = null;
     }
 
     public int Interact(PlayerUnitController controller)
@@ -43,13 +48,12 @@ public class InteractableItem : MonoBehaviour, IInteractable
         if (res == 0)
         {
             gameObject.PoolOrDestroy();
+            if (EvtOnTaken != null)
+            {
+                EvtOnTaken.Invoke(this);
+            }
         }
         return 0;
-    }
-
-    public bool IsInteractable()
-    {
-        return canPickup;
     }
 
     public void OnSelected()
@@ -70,11 +74,11 @@ public class InteractableItem : MonoBehaviour, IInteractable
 
     public void OnReachable(PlayerUnitController controller)
     {
-        canPickup = true;
+        IsInteractable = true;
     }
 
     public void OnUnreachable(PlayerUnitController controller)
     {
-        canPickup = false;
+        IsInteractable = false;
     }
 }

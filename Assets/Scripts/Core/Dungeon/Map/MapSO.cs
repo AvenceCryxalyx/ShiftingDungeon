@@ -15,7 +15,7 @@ public struct ItemDropRates
     public int Weight;
 }
 
-[CreateAssetMenu(fileName = "MapSO", menuName = "Scriptable Objects/MapSO")]
+[CreateAssetMenu(fileName = "MapSO", menuName = "Scriptable Objects/Maps/MapSO")]
 public class MapSO : ScriptableObject
 {
     public int Rows;

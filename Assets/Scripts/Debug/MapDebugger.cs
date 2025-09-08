@@ -6,11 +6,12 @@ public class MapDebugger : MonoBehaviour
     [SerializeField]
     private DungeonMaster dm;
 
-    Timer test = new Timer(60);
+    Timer test;
 
     private void Start()
     {
         InitializeMap();
+        test = new Timer(60);
         test.EvtTimerUp += TestTimer;
         test.Start();
     }
@@ -24,7 +25,7 @@ public class MapDebugger : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Tab))
         {
-            dm.Map.DoRoomSwaps(5);
+            dm.Map.SelectAreasToSwap(5);
         }
     }
 

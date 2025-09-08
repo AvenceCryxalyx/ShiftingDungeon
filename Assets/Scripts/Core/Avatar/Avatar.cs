@@ -17,6 +17,13 @@ public class Avatar : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void PlayAnimation(string animationName)
+    {
+        if (animator != null)
+        {
+            animator.Play(animationName);
+        }
+    }
     public void SetBool(string name, bool value)
     {
         if (animator != null)

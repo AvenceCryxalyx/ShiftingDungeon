@@ -1,0 +1,509 @@
+fileFormatVersion: 2
+guid: 6e6d84a763bb78d48b81a95704fbb966
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2029040268504636612
+    second: DeathBlood_0
+  - first:
+      213: 5677324707242592756
+    second: DeathBlood_1
+  - first:
+      213: -3408831282936817150
+    second: DeathBlood_2
+  - first:
+      213: 6509919045635658245
+    second: DeathBlood_3
+  - first:
+      213: 3850269179236890280
+    second: DeathBlood_4
+  - first:
+      213: 4142570542203230671
+    second: DeathBlood_5
+  - first:
+      213: 4780820105002684016
+    second: DeathBlood_6
+  - first:
+      213: -9068412376962139535
+    second: DeathBlood_7
+  - first:
+      213: -7042733301021421718
+    second: DeathBlood_8
+  - first:
+      213: -2673416098600013375
+    second: DeathBlood_9
+  - first:
+      213: 8024843364798061563
+    second: DeathBlood_10
+  - first:
+      213: -6361749502006011135
+    second: DeathBlood_11
+  - first:
+      213: 5801030975323616897
+    second: DeathBlood_12
+  - first:
+      213: -1415726054777719400
+    second: DeathBlood_13
+  - first:
+      213: -1582258122409530946
+    second: DeathBlood_14
+  - first:
+      213: -7935986084540901099
+    second: DeathBlood_15
+  - first:
+      213: 8267337074097250471
+    second: DeathBlood_16
+  - first:
+      213: 6085461278203381511
+    second: DeathBlood_17
+  - first:
+      213: 4727896641384482751
+    second: DeathBlood_18
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DeathBlood_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cc9e27bf59982c10800000000000000
+      internalID: 2029040268504636612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f94eb1ddb8e9ce40800000000000000
+      internalID: 5677324707242592756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_2
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20adf49420661b0d0800000000000000
+      internalID: -3408831282936817150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_3
+      rect:
+        serializedVersion: 2
+        x: 508
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 502d9a781e0e75a50800000000000000
+      internalID: 6509919045635658245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_4
+      rect:
+        serializedVersion: 2
+        x: 677
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a6bc0e3b67ee6530800000000000000
+      internalID: 3850269179236890280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_5
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc95509b5fd5d7930800000000000000
+      internalID: 4142570542203230671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_6
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07e0bbd3e82e85240800000000000000
+      internalID: 4780820105002684016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_7
+      rect:
+        serializedVersion: 2
+        x: 1184
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17a7a6a5df6862280800000000000000
+      internalID: -9068412376962139535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_8
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6fcdc0706f234e90800000000000000
+      internalID: -7042733301021421718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_9
+      rect:
+        serializedVersion: 2
+        x: 1522
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1b222093e16ead0800000000000000
+      internalID: -2673416098600013375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_10
+      rect:
+        serializedVersion: 2
+        x: 1691
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfb50f8d588fd5f60800000000000000
+      internalID: 8024843364798061563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_11
+      rect:
+        serializedVersion: 2
+        x: 1860
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10bd9eea88686b7a0800000000000000
+      internalID: -6361749502006011135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_12
+      rect:
+        serializedVersion: 2
+        x: 2029
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 186b337dfe6618050800000000000000
+      internalID: 5801030975323616897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DeathBlood_13
+      rect:
+        serializedVersion: 2
+        x: 2198
+        y: 0
+        width: 169
+        height: 170
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89575bd67a45a5ce0800000000000000
+      internalID: -1415726054777719400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: da71a651132123f44a3c00c685389309
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DeathBlood_0: 2029040268504636612
+      DeathBlood_1: 5677324707242592756
+      DeathBlood_10: 8024843364798061563
+      DeathBlood_11: -6361749502006011135
+      DeathBlood_12: 5801030975323616897
+      DeathBlood_13: -1415726054777719400
+      DeathBlood_2: -3408831282936817150
+      DeathBlood_3: 6509919045635658245
+      DeathBlood_4: 3850269179236890280
+      DeathBlood_5: 4142570542203230671
+      DeathBlood_6: 4780820105002684016
+      DeathBlood_7: -9068412376962139535
+      DeathBlood_8: -7042733301021421718
+      DeathBlood_9: -2673416098600013375
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

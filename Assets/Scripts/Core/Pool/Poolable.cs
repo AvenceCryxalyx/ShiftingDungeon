@@ -47,8 +47,15 @@ public static class PoolableExtension
     public static void PoolOrDestroy(this GameObject obj)
     {
         Poolable poolable = obj.GetComponent<Poolable>();
-        if (poolable && poolable.Bound) poolable.Pool();
-        else Object.Destroy(obj);
+        if (poolable && poolable.Bound)
+        {
+            poolable.Pool();
+        }
+        else
+        {
+            Debug.Log("Destroyed");
+            Object.Destroy(obj);
+        }
     }
 
     public static void PoolOrDestroy(this Component comp)
