@@ -17,10 +17,6 @@ public class MapArea : MonoBehaviour
     #region Fields
     protected BoxCollider2D boxCol;
     protected List<GameObject> objectsInside = new List<GameObject>();
-    
-    protected Coroutine moveCor;
-    private List<GameObject> childObjects;
-    private int layer;
     #endregion
 
     #region Properties
@@ -32,14 +28,14 @@ public class MapArea : MonoBehaviour
     #endregion
 
     #region Unity Methods
-    private void Awake()
+    protected virtual void Awake()
     {
         boxCol = GetComponent<BoxCollider2D>();
-        if(offset != Vector2.zero)
+        if (offset != Vector2.zero)
         {
             boxCol.offset = offset;
         }
-        if(dimensions != Vector2.zero)
+        if (dimensions != Vector2.zero)
         {
             boxCol.size = dimensions;
         }
@@ -50,23 +46,6 @@ public class MapArea : MonoBehaviour
 
         //childObjects = GetComponentsInChildren<GameObject>().ToList();
         DungeonMode.Master.Map.Register(this);
-        layer = gameObject.layer;
-    }
-
-    private void Start()
-    {
-        if (!AreaInfo)
-        {
-            return;
-        }
-        if(!AreaInfo.hasSpecifics)
-        {
-            return;
-        }
-        if(AreaInfo.CoordinateX != -1 && AreaInfo.CoordinateY != -1)
-        {
-            Initialize(new Tuple<int, int>(AreaInfo.CoordinateX, AreaInfo.CoordinateY));
-        }
     }
     #endregion
 
@@ -102,11 +81,6 @@ public class MapArea : MonoBehaviour
         Coordinates = coordinates;
         transform.localPosition = LastPosition;
     }
-
-    public virtual void MoveToNewPosition(Vector2 position)
-    {
-        moveCor = StartCoroutine(MovePositionTask(position, DungeonMaster.MapAreaMoveSpeed));
-    }
     public virtual void ChangeCoordinates(Tuple<int,int> newCoord)
     {
         Coordinates = newCoord;
@@ -115,34 +89,10 @@ public class MapArea : MonoBehaviour
     public virtual void Unload() { }
     #endregion
 
-
-    public void InterruptMovement()
+    #if UNITY_EDITOR
+    private void OnDrawGizmos()
     {
-        if (!IsMoving)
-            return;
-
-        StopCoroutine(moveCor);
-        moveCor = null;
-        IsMoving = false;
-        transform.position = LastPosition;
+        Gizmos.DrawCube(transform.position, dimensions);   
     }
-
-    private IEnumerator MovePositionTask(Vector2 position, float speed)
-    {
-        Vector3 direction = (position - (Vector2)transform.localPosition);
-        while (true)
-        {
-            transform.localPosition += direction.normalized * speed * Time.deltaTime;
-            if (Vector3.Distance(transform.localPosition, position) < 0.3f)
-            {
-                transform.localPosition = position;
-                LastPosition = transform.localPosition;
-                Coordinates = new Tuple<int, int>((int)LastPosition.x / DungeonMaster.MapAreaSizeX, (int)LastPosition.y / DungeonMaster.MapAreaSizeY);
-                IsMoving = false;
-                break;
-            }
-            yield return null;
-        }
-        yield return null;
-    }
+    #endif
 }

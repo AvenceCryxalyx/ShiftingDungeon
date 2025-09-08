@@ -7,7 +7,7 @@ public class UnitAvatar : Avatar
     protected override void Awake()
     {
         base.Awake();
-        boundController = GetComponentInParent<UnitController>();    
+        boundController = GetComponentInParent<UnitController>();
     }
 
     private void Update()

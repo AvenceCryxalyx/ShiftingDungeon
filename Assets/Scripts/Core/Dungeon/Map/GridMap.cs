@@ -57,8 +57,8 @@ public class GridMap : Map
         List<Tuple<int, int>> availableCoordinates = new List<Tuple<int, int>>();
         List<Tuple<int, int>> setCoordinates = new List<Tuple<int, int>>();
         List<MapArea> availableRooms = allAreas;
-        IEnumerable<MapArea> hasSpecifics = availableRooms.Where(x => x.AreaInfo.hasSpecifics);
-        IEnumerable<MapArea> hasResrictions = availableRooms.Where(x => x.AreaInfo.hasRestrictions && !x.AreaInfo.hasSpecifics);
+        IEnumerable<MapArea> hasSpecifics = availableRooms.Where(x => ((GridMapAreaSO)x.AreaInfo).hasSpecifics);
+        IEnumerable<MapArea> hasResrictions = availableRooms.Where(x => ((GridMapAreaSO)x.AreaInfo).hasSwapRestrictions && !((GridMapAreaSO)x.AreaInfo).hasSpecifics);
         for(int x = 0; x < CurrentColumns; x++)
         {
             for(int y = 0; y < CurrentRows; y++)
@@ -71,14 +71,7 @@ public class GridMap : Map
         foreach(MapArea area in hasSpecifics)
         {
             Tuple<int, int> getSpecific;
-            if (area.AreaInfo.CoordinateX != -1 && area.AreaInfo.CoordinateY != -1)
-            {
-                getSpecific = availableCoordinates[(area.AreaInfo.CoordinateX * CurrentColumns) + area.AreaInfo.CoordinateY];
-            }
-            else
-            {
-                getSpecific = CheckOtherSpecifics(area, availableCoordinates);
-            }
+            getSpecific = GetSpecifics(area, availableCoordinates);
             area.Initialize(getSpecific);
             map[getSpecific.Item1, getSpecific.Item2] = area;
             setCoordinates.Add(getSpecific);
@@ -254,40 +247,46 @@ public class GridMap : Map
         return map[x, y] != null;
     }
 
-    private Tuple<int, int> CheckOtherSpecifics(MapArea area, List<Tuple<int, int>> availableCoords)
+    private Tuple<int, int> GetSpecifics(MapArea area, List<Tuple<int, int>> availableCoords)
     {
-        if(area.AreaInfo.shouldBeMiddle)
+        GridMapAreaSO so = area.AreaInfo as GridMapAreaSO;
+
+        if (so.CoordinateX != -1 && so.CoordinateY != -1)
+        {
+            return availableCoords[(so.CoordinateX * CurrentColumns) + so.CoordinateY];
+        }
+        else if (so.shouldBeMiddle)
         {
             int column = ((CurrentColumns - 1) / 2);
             int row = ((CurrentRows - 1) / 2);
             return availableCoords.FirstOrDefault(x => (x.Item1 == column && x.Item2 == row));
         }
-        else if(area.AreaInfo.SpecificRow != -1 && (area.AreaInfo.SpecificColumn != -1))
+        else if(so.SpecificRow != -1 && (so.SpecificColumn != -1))
         {
-            if (!CheckIfCoordinateIsFilled(area.AreaInfo.SpecificColumn, area.AreaInfo.SpecificRow))
+            if (!CheckIfCoordinateIsFilled(so.SpecificColumn, so.SpecificRow))
             {
                 Debug.LogError("Specific Coordinates already occupied.");
                 return null;
             }
-            return availableCoords.First(x => (x.Item1 == area.AreaInfo.SpecificColumn && area.AreaInfo.SpecificRow == x.Item2));
+            return availableCoords.First(x => (x.Item1 == so.SpecificColumn && so.SpecificRow == x.Item2));
         }
-        else if (area.AreaInfo.SpecificRow != -1)
+        else if (so.SpecificRow != -1)
         {
             int randomColumn = UnityEngine.Random.Range(0, CurrentColumns);
-            if (CheckIfCoordinateIsFilled(randomColumn, area.AreaInfo.SpecificRow))
+            if (CheckIfCoordinateIsFilled(randomColumn, so.SpecificRow))
             {
-                return availableCoords[randomColumn + (CurrentColumns * area.AreaInfo.SpecificRow)];
+                return availableCoords[randomColumn + (CurrentColumns * so.SpecificRow)];
             }
-            return CheckOtherSpecifics(area, availableCoords);
+            return GetSpecifics(area, availableCoords);
         }
-        else if (area.AreaInfo.SpecificColumn != -1)
+        else if (so.SpecificColumn != -1)
         {
             int randomRow = UnityEngine.Random.Range(0, CurrentRows);
-            if(CheckIfCoordinateIsFilled(area.AreaInfo.SpecificColumn, randomRow))
+            if(CheckIfCoordinateIsFilled(so.SpecificColumn, randomRow))
             {
-                return availableCoords[randomRow + (CurrentRows * area.AreaInfo.SpecificColumn)];
+                return availableCoords[randomRow + (CurrentRows * so.SpecificColumn)];
             }
-            return CheckOtherSpecifics(area, availableCoords);
+            return GetSpecifics(area, availableCoords);
         }
         else
             return availableCoords[0];
@@ -300,20 +299,22 @@ public class GridMap : Map
         int minColumnValid = 0;
         int maxColumnValid = CurrentColumns - 1;
 
-        if(area.AreaInfo.IsBottomRowRestricted)
+        GridMapAreaSO so = area.AreaInfo as GridMapAreaSO;
+
+        if (so.IsBottomRowRestricted)
         {
             minRowValid += 1;
 
         }
-        if(area.AreaInfo.IsTopRowRestricted)
+        if(so.IsTopRowRestricted)
         {
              maxRowValid -= 1;
         }
-        if(area.AreaInfo.IsRightColRestricted)
+        if(so.IsRightColRestricted)
         {
             maxColumnValid -= 1;
         }
-        if(area.AreaInfo.IsLeftColRestricted)
+        if(so.IsLeftColRestricted)
         {
             minColumnValid += 1;
         }
@@ -341,12 +342,12 @@ public class GridMap : Map
 
     private bool CheckSelectionRestrictions(MapArea area)
     {
-        if (!area.AreaInfo.hasRestrictions)
+        if (!((GridMapAreaSO)area.AreaInfo).hasSelectionRestrictions)
         {
             return true;
         }
 
-        if (area.AreaInfo.IsPositionLocked || area.IsMovementLocked)
+        if (((GridMapAreaSO)area.AreaInfo).IsPositionLocked || area.IsMovementLocked)
         {
             return false;
         }
@@ -355,42 +356,45 @@ public class GridMap : Map
 
     private bool CheckSwapRestrictions(MapArea area1, MapArea area2)
     {
-        if (!area1.AreaInfo.hasRestrictions && !area2.AreaInfo.hasRestrictions)
+        GridMapAreaSO area1SO = area1.AreaInfo as GridMapAreaSO;
+        GridMapAreaSO area2SO = area2.AreaInfo as GridMapAreaSO;
+
+        if (!area1SO.hasSwapRestrictions && !area2SO.hasSwapRestrictions)
         {
             return true;
         }
 
-        if (area1.AreaInfo.IsPositionLocked || area1.IsMovementLocked || area2.AreaInfo.IsPositionLocked || area2.IsMovementLocked)
+        if (area1SO.IsPositionLocked || area1.IsMovementLocked || area2SO.IsPositionLocked || area2.IsMovementLocked)
         {
             return false;
         }
 
-        if (area1.AreaInfo.IsColumnLocked || area2.AreaInfo.IsColumnLocked)
+        if (area1SO.IsColumnLocked || area2SO.IsColumnLocked)
         {
             return area1.Coordinates.Item1 == area2.Coordinates.Item1;
         }
 
-        if (area1.AreaInfo.IsRowLocked || area2.AreaInfo.IsRowLocked)
+        if (area1SO.IsRowLocked || area2SO.IsRowLocked)
         {
             return area1.Coordinates.Item2 == area2.Coordinates.Item2;
         }
 
-        if (area1.AreaInfo.IsTopRowRestricted || area2.AreaInfo.IsTopRowRestricted)
+        if (area1SO.IsTopRowRestricted || area2SO.IsTopRowRestricted)
         {
             return (area1.Coordinates.Item2 != 0 && area2.Coordinates.Item2 != 0);
         }
 
-        if (area1.AreaInfo.IsBottomRowRestricted || area2.AreaInfo.IsBottomRowRestricted)
+        if (area1SO.IsBottomRowRestricted || area2SO.IsBottomRowRestricted)
         {
             return (area1.Coordinates.Item2 != CurrentRows - 1 && area2.Coordinates.Item2 != CurrentRows - 1);
         }
 
-        if (area1.AreaInfo.IsLeftColRestricted || area2.AreaInfo.IsLeftColRestricted)
+        if (area1SO.IsLeftColRestricted || area2SO.IsLeftColRestricted)
         {
             return (area1.Coordinates.Item1 != 0 && area2.Coordinates.Item1 != 0);
         }
 
-        if (area1.AreaInfo.IsRightColRestricted || area2.AreaInfo.IsRightColRestricted)
+        if (area1SO.IsRightColRestricted || area2SO.IsRightColRestricted)
         {
             return (area1.Coordinates.Item2 != CurrentColumns - 1 && area2.Coordinates.Item2 != CurrentColumns - 1);
         }

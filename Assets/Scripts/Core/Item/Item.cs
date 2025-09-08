@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -18,19 +19,20 @@ public class Item : MonoBehaviour
         Exquisite,
     }
 
-    public string Name { get; protected set; }
-    public string Description { get; protected set; }   
+    public string Name { get { return so.Name; } }
+    public string Description { get { return so.Description; } }   
     public ModValue Value { get; protected set; }
-    public Sprite Icon { get; protected set; }
-    public ItemType Type { get; protected set; }
-    public ItemRarity Rarity { get; protected set; }
+    public Sprite Icon { get { return so.Sprite; } }
+    public ItemType Type { get { return so.Type; } }
+    public ItemRarity Rarity { get { return so.Rarity; } }
+    public int Stack { get; protected set; }
+    public int MaxStack { get { return (so.IsStackable) ? so.MaxStack : 0; } }
+
+    private ItemDataSO so;
+
     public virtual void Initialize(ItemDataSO data) 
     { 
-        Name = data.Name;
-        Description = data.Description;
-        Type = data.Type;
-        Icon = data.Sprite;
-        Rarity = data.Rarity;
+        so = data;
         Value = new ModValue(data.BaseValue, 0f, 0f);
     }
     public virtual void Use() { }
