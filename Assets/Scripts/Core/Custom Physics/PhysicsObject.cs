@@ -142,6 +142,10 @@ public class PhysicsObject : MonoBehaviour
         this.gameObject.layer = layer;
         SetContactFilter();
     }
+    public void AddImpulseVelocity(Vector2 force)
+    {
+        rb2d.AddForce(force, ForceMode2D.Impulse);
+    }
 
     public void SetContactFilter()
     {
