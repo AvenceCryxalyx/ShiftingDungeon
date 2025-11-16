@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc62cd245458a41489765df17ada08d0, type: 3}
+  m_Name: tso-idle-jump
+  m_EditorClassIdentifier: 
+  ToTranstionState: {fileID: 11400000, guid: 540ffe41db6b6a04eb3919b5cc7f23a2, type: 2}
+  conditions:
+  - {fileID: 11400000, guid: 852e652a1e3752b4d95f416306830ffd, type: 2}
+  - {fileID: 11400000, guid: 6b7010ced2de7e7478bcd897814a3699, type: 2}

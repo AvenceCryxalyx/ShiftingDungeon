@@ -8,12 +8,6 @@ public struct MapAreaRates
     public MapAreaSO Area;
     public int Weight;
 }
-[Serializable]
-public struct ItemDropRates
-{
-    public ItemDataSO Item;
-    public int Weight;
-}
 
 [CreateAssetMenu(fileName = "MapSO", menuName = "Scriptable Objects/Maps/MapSO")]
 public class MapSO : ScriptableObject

@@ -55,5 +55,15 @@ public class Avatar : MonoBehaviour
             animator.SetTrigger(name);
         }
     }
+
+    public bool IsCurrentAnimationFinished(string animName)
+    {
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        if(info.IsName(animName) && info.normalizedTime >= 1f)
+        {
+            return true;
+        }
+        return false;
+    }
     #endregion
 }

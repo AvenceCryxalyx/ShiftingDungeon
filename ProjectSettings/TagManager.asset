@@ -51,6 +51,12 @@ TagManager:
   - name: MiddleGround
     uniqueID: 1909728295
     locked: 0
+  - name: ObstacleTiles
+    uniqueID: 3424339129
+    locked: 0
+  - name: GroundTiles
+    uniqueID: 2047025439
+    locked: 0
   - name: ForeGround
     uniqueID: 3511611469
     locked: 0

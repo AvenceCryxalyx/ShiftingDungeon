@@ -31,7 +31,6 @@ public class PlayerUnitController : UnitController
     {
         base.Start();
         Player.instance.RegisterUnit(this);
-        Health = Player.instance.Health;
     }
 
     public void Initialize(PlayerInputAction inputs)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ExitRoom : MonoBehaviour, IInteractable
+public class ExitPortal : Interactable
 {
     [SerializeField]
     private bool isActive = true;
@@ -9,34 +9,15 @@ public class ExitRoom : MonoBehaviour, IInteractable
     private bool isSelected = false;
     private bool isReacable = false;
 
-    public string InteractText { get { return "Exit Dungeon"; } }
-    public bool IsInteractable { get; protected set; }
+    private void Awake()
+    {
+        InteractText = "Exit Dungeon";
+    }
 
     #region IInteractable Implementations
     public int Interact(PlayerUnitController controller)
     {
         return DoExit();
-    }
-
-    public void OnReachable(PlayerUnitController controller)
-    {
-        IsInteractable = true;
-    }
-
-    public void OnSelected()
-    {
-        isSelected = true;
-    }
-
-    public void OnUnreachable(PlayerUnitController controller)
-    {
-        IsInteractable = false;
-        isSelected = false;
-    }
-
-    public void OnUnselected()
-    {
-        isSelected = false;
     }
     #endregion
 

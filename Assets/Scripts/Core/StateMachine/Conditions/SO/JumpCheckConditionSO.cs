@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GroundedStatusCondition", menuName = "Scriptable Objects/StateMachine/Conditions/JumpCheckCondition")]
+[CreateAssetMenu(fileName = "JumpCheckConditionSO", menuName = "Scriptable Objects/StateMachine/Conditions/JumpCheckCondition")]
 public class JumpCheckConditionSO : ConditionSO
 {
     public override Condition GetCondition()

@@ -15,21 +15,28 @@ public class DebugMenu : MonoBehaviour
     [SerializeField, ValueDropdown("GetListOfItemsSO")] private ItemDataSO ItemToReplace;
     [SerializeField, ValueDropdown("GetListOfKeys")] private ItemDataSO KeyItemToUse;
 
+    private Inventory inventory;
+
+    private void Start()
+    {
+        inventory = Player.instance.GetComponentInChildren<Inventory>();
+    }
+
     public void AddItem()
     {
-        Player.instance.Inventory.AddItem(ItemManager.instance.GetItem(ItemToAdd.name));
+        inventory.AddItem(ItemManager.instance.GetItem(ItemToAdd.name));
     }
 
     public void RemoveItem()
     {
-        Player.instance.Inventory.RemoveItem(ItemManager.instance.GetItem(ItemToRemove.name));
+        inventory.RemoveItem(ItemManager.instance.GetItem(ItemToRemove.name));
     }
 
     public void TryOpenChestsInInventory()
     {
         Item key = ItemManager.instance.GetItem(KeyItemToUse.name);
-        Player.instance.Inventory.AddItem(key);
-        foreach (Item item in Player.instance.Inventory.Items)
+        inventory.AddItem(key);
+        foreach (Item item in inventory.Items)
         {
             if(item is LockedItem)
             {

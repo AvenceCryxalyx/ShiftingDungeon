@@ -23,7 +23,6 @@ public class ResultScreenInventorySlotUI : MonoBehaviour, IPointerClickHandler
 
     public void Sell()
     {
-        Player.instance.Inventory.RemoveItem(item);
         if (OnSold != null)
         {
             OnSold.Invoke(item);

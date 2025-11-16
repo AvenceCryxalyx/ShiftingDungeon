@@ -9,8 +9,11 @@ public class TimeElapsedCondition : Condition
     {
         base.Initialize(so);
         TimeElapsedConditionSO con = so as TimeElapsedConditionSO;
-        timer = new Timer(con.WaitSeconds);
-        timer.EvtTimerUp += OnTimeUp;
+        if (con != null)
+        {
+            timer = new Timer(con.WaitSeconds);
+            timer.EvtTimerUp += OnTimeUp;
+        }
     }
 
     public override void Activate(StateController unit)

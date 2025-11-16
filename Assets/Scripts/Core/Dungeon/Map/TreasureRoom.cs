@@ -17,8 +17,8 @@ public class TreasureRoom : SpawnRoom
     private InteractableItemDropsSO dropObjectsList;
 
     //private Gacha TreasureGacha;
-    private Dictionary<string, InteractableItem> possibleDrops = new Dictionary<string, InteractableItem>();
-    private List<InteractableItem> drops = new List<InteractableItem>();
+    private Dictionary<string, ItemDrop> possibleDrops = new Dictionary<string, ItemDrop>();
+    private List<ItemDrop> drops = new List<ItemDrop>();
     public override void Initialize(Tuple<int, int> coordinates)
     {
         base.Initialize(coordinates);
@@ -33,7 +33,7 @@ public class TreasureRoom : SpawnRoom
     public override void Unload()
     {
         base.Unload();
-        foreach (InteractableItem item in drops)
+        foreach (ItemDrop item in drops)
         {
             if (item)
             {
@@ -54,7 +54,7 @@ public class TreasureRoom : SpawnRoom
         foreach (string id in DungeonMode.Master.ItemSpawnGacha.PullMultiple(spawnAmount))
         {
             Item item = ItemManager.instance.GetItem(id);
-            InteractableItem drop = dropObjectsList.GetDropItem(item.Rarity);
+            ItemDrop drop = dropObjectsList.GetDropItem(item.Rarity);
             drop.transform.SetParent(this.transform);
             drop.SetItem(item);
             drop.EvtOnTaken += OnInteractableActiveChange;
@@ -63,7 +63,7 @@ public class TreasureRoom : SpawnRoom
         }
     }
 
-    private void OnInteractableActiveChange(InteractableItem drop)
+    private void OnInteractableActiveChange(ItemDrop drop)
     {
         if(!drop.gameObject.activeSelf)
         {

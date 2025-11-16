@@ -6,4 +6,5 @@ public class StateMachineSO : ScriptableObject
 {
     public StateSO EntryState;
     public List<StateSO> AllPossibleStates;
+    public List<Transition> AnyStateTransitions;
 }

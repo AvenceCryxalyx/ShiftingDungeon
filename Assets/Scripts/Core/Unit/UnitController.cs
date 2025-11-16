@@ -103,7 +103,7 @@ public class UnitController : PhysicsObject
     /// <summary>
     /// Function that sets the Horizontal Movement
     /// </summary>
-    public void SetTargetVelocity(Vector2 velocity)
+    public void SetHorizontalVelocity(Vector2 velocity)
     {
         targetVelocity = velocity;
     }
@@ -111,7 +111,7 @@ public class UnitController : PhysicsObject
     /// <summary>
     /// Function that sets Vertical Movement
     /// </summary>
-    public void SetVelocity(Vector2 velocity)
+    public void SetVerticalVelocity(Vector2 velocity)
     {
         this.velocity = velocity;
     }

@@ -3,7 +3,7 @@ using UnityEngine.InputSystem.XR;
 using UnityEngine.Rendering.Universal;
 using static Unity.VisualScripting.Member;
 
-public class Ladder : MonoBehaviour, IInteractable
+public class Ladder : Interactable
 {
 
     [SerializeField]
@@ -13,27 +13,28 @@ public class Ladder : MonoBehaviour, IInteractable
     private PlayerUnitController currentUser;
     private bool inUse = false;
 
-    #region Properties
-    public bool IsInteractable { get; private set; }
-    public string InteractText { get { return "Use Ladder"; } }
-    #endregion
+    private void Awake()
+    {
+        InteractText = "Use Ladder";
+    }
 
-    public int Interact(PlayerUnitController controller)
+    public override int Interact(InteractionHandler handler)
     {
         if(!IsInteractable)
         {
-            return 1;
+            return (int)InteractableStatus.Failed;
         }
-        controller.Avatar.SetTrigger("LadderInteract");
+        handler.PlayerUnit.Avatar.SetTrigger("LadderInteract");
         if (!inUse)
         {
-            GetOn(controller);
+            GetOn(handler.PlayerUnit);
+            return (int)InteractableStatus.InProgress;
         }
         else
         {
-            GetOff(controller, false);
+            GetOff(handler.PlayerUnit, false);
+            return (int)InteractableStatus.Success;
         }
-        return 0;
     }
 
     public void GetOn(PlayerUnitController controller)

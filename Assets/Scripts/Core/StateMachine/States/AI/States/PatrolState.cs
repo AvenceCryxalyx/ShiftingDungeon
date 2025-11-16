@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -5,6 +6,9 @@ public class PatrolState : State
 {
     private AIUnitController aiController;
     private PatrolStateSO so;
+
+    private List<Vector2> patrolPoints = new List<Vector2>();
+
     public override void Do()
     {
         base.Do();
@@ -29,8 +33,6 @@ public class PatrolState : State
 
     public override IEnumerator OnExit()
     {
-        so.InputX = 0;
-        so.InputY = 0;
         yield return base.OnExit();
     }
 }

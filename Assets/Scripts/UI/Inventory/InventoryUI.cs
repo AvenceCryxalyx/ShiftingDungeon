@@ -29,20 +29,20 @@ public class InventoryUI : UIVIew
     protected override void Start()
     {
         base.Start();
-        inventory = Player.instance.Inventory;
+        inventory = Player.instance.Unit.GetComponentInChildren<Inventory>();
         inventory.EvtItemDropped += OnRemovedFromInventory;
         inventory.EvtItemRemoved += OnRemovedFromInventory;
         inventory.EvtItemPickedUp += OnAddToInventory;
         LoadSlots();
     }
 
-    public override void OnShow()
+    protected override void OnShow()
     {
         base.OnShow();
         LoadSlots();
     }
 
-    public override void OnHide()
+    protected override void OnHide()
     {
         base.OnHide();
     }
@@ -56,7 +56,7 @@ public class InventoryUI : UIVIew
 
     private void CheckSlotCount()
     {
-        int maxSlotCount = Player.instance.Inventory.MaxSlotCount;
+        int maxSlotCount = inventory.MaxSlotCount;
         int currentSlotCount = slots.Count;
         if (slots.Count < maxSlotCount)
         {

@@ -23,19 +23,27 @@ public class ResultHandler : MonoBehaviour
     private ResultLoanDetailsPanel loanPanel;
 
     private LoanReductionReport LoanReport;
+    private Inventory playerInventory;
     private List<SalesReport> sales = new List<SalesReport>();
 
     private void Awake()
     {
+        playerInventory = Player.instance.GetComponentInChildren<Inventory>();
+
+        if (playerInventory == null)
+        {
+            return;
+        }
+
         LoanReport = new LoanReductionReport();
         LoanReport.LoanRemainingBefore = LoanManager.instance.AmountRemaining;
         LoanReport.DaysRemaining = LoanManager.instance.DaysRemaining;
         LoanReport.LoanRemainingAfter = LoanManager.instance.AmountRemaining;
 
-        foreach(Item item in Player.instance.Inventory.Items)
+        foreach(Item item in playerInventory.Items)
         {
             SalesReport sale = new SalesReport();
-            sale.amount = item.Value.Current;
+            sale.amount = Mathf.CeilToInt(item.Value.Current);
             sale.Icon = item.Icon;
             sales.Add(sale);
         }
@@ -51,7 +59,7 @@ public class ResultHandler : MonoBehaviour
     {
         PayoffLoan();
         LoanReport.LoanRemainingAfter = LoanManager.instance.AmountRemaining;
-        Player.instance.Inventory.ClearInventory();
+        playerInventory.ClearInventory();
     }
 
     public void PayoffLoan()

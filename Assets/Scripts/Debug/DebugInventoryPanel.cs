@@ -15,6 +15,8 @@ public class DebugInventoryPanel : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Button removeButton;
 
+    private Inventory inventory;
+
     private void Start()
     {
         dropDown.ClearOptions();
@@ -30,16 +32,17 @@ public class DebugInventoryPanel : MonoBehaviour
         dropDown.AddOptions(optionDatas);
         addButton.onClick.AddListener(OnAddClicked);
         removeButton.onClick.AddListener(OnRemoveClicked);
+        inventory = Player.instance.GetComponentInChildren<Inventory>();
 
     }
 
     private void OnAddClicked()
     {
-        Player.instance.Inventory.AddItem(ItemManager.instance.GetItem(dropDown.captionText.text));
+        inventory.AddItem(ItemManager.instance.GetItem(dropDown.captionText.text));
     }
 
     private void OnRemoveClicked()
     {
-        Player.instance.Inventory.RemoveItem(ItemManager.instance.GetItem(dropDown.captionText.text));
+        inventory.RemoveItem(ItemManager.instance.GetItem(dropDown.captionText.text));
     }
 }
