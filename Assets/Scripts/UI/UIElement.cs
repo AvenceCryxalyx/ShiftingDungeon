@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class UIElement : MonoBehaviour
 {
@@ -9,29 +10,53 @@ public class UIElement : MonoBehaviour
     public Action<UIElement> EvtShown;
     public Action<UIElement> EvtHidden;
 
+    public string Id { get; protected set; }
+
     public bool IsShown { get; private set; }
+
+    protected virtual void Start()
+    {
+        UIManager.Register(Id, this);
+    }
+
+    protected virtual void OnDestroy()
+    {
+        UIManager.Deregister(Id);
+    }
 
     public void Show()
     {
         OnShow();
 
-        if(EvtShown != null)
+        gameObject.SetActive(true);
+
+        IsShown = true;
+
+        if (EvtShown != null)
         {
             EvtShown.Invoke(this);
         }
-        IsShown = true;
+
+        OnShown();
     }
     public void Hide()
     {
         OnHide();
 
+        gameObject.SetActive(false);
+
+        IsShown = false;
+
         if (EvtHidden != null)
         {
             EvtHidden.Invoke(this);
         }
-        IsShown = false;
+
+        OnHidden();
     }
 
-    public virtual void OnShow() { }
-    public virtual void OnHide() { }
+    protected virtual void OnShow() { }
+    protected virtual void OnShown() { }
+    protected virtual void OnHide() { }
+    protected virtual void OnHidden() { }
 }

@@ -7,12 +7,12 @@ public class UIVIew : UIElement
 
     public UIViewType Type { get { return menuType; } }
 
-    protected virtual void Start()
+    protected override void Start()
     {
         UIManager.Register(this);
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         UIManager.DeRegister(this);
     }

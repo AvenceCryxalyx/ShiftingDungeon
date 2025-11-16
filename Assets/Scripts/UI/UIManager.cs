@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Define this with whatever UI Views you will have.
+/// </summary>
 public enum UIViewType
 {
     Main,
@@ -9,19 +12,21 @@ public enum UIViewType
     BuffStore,
     MechantStore,
     GameMessage,
+    GatherConfirm,
+    GatherResult,
 }
 
 public class UIManager : SimpleSingleton<UIManager>
 {
     private Dictionary<UIViewType,UIVIew> views = new Dictionary<UIViewType, UIVIew>();
-    private Dictionary<string, UIElement> importantElements = new Dictionary<string, UIElement>();
+    private Dictionary<string, UIElement> elements = new Dictionary<string, UIElement>();
     private PlayerInputAction action;
     public static void Register(UIVIew menu)
     {
         if (!instance.views.ContainsKey(menu.Type))
             instance.views.Add(menu.Type, menu);
         else
-            Debug.Log(string.Format("Another instance of menu type {0} tried to register", menu.Type.ToString()));
+            Debug.Log($"Another instance of menu type {menu.Type.ToString()} tried to register");
     }
 
     public static void DeRegister(UIVIew menu)
@@ -29,52 +34,54 @@ public class UIManager : SimpleSingleton<UIManager>
         if(instance.views.ContainsKey(menu.Type))
             instance.views.Remove(menu.Type);
         else
-            Debug.Log(string.Format("Another instance of menu type {0} tried to deregister", menu.Type.ToString()));
+            Debug.Log($"Another instance of menu type {menu.Type.ToString()} tried to deregister");
     }
 
     public static void Register(string id, UIElement element)
     {
-        if (!instance.importantElements.ContainsKey(id))
-            instance.importantElements.Add(id, element);
+        if (!instance.elements.ContainsKey(id))
+            instance.elements.Add(id, element);
         else
-            Debug.Log(string.Format("Another instance of element id {0} tried to register", id));
+            Debug.Log($"Another instance of element id {id} tried to register");
     }
 
-    public static void DeRegister(string id, UIElement element)
+    public static void Deregister(string id)
     {
-        if (instance.importantElements.ContainsKey(id))
-            instance.importantElements.Remove(id);
+        if (instance.elements.ContainsKey(id))
+            instance.elements.Remove(id);
         else
-            Debug.Log(string.Format("Another instance of element id {0} tried to deregister", id));
+            Debug.Log($"Another instance of element id {id} tried to deregister");
     }
 
-    public void ShowView(UIViewType type)
+    public UIVIew ShowView(UIViewType type)
     {
-        UIVIew ui;
-        views.TryGetValue(type, out ui);
-        if (ui == null)
+        UIVIew view;
+        views.TryGetValue(type, out view);
+        if (view == null)
         {
-            Debug.LogError(string.Format("Menu: {0} is null", type.ToString()));
-            return;
+            Debug.LogError($"Menu: {type.ToString()} is null");
+            return null;
         }
-        if(!ui.IsShown)
+        if(!view.IsShown)
         {
-            ui.Show();
+            view.Show();
         }
+        return view;
     }
 
-    public void HideView(UIViewType type)
+    public UIVIew HideView(UIViewType type)
     {
-        UIVIew menu;
-        views.TryGetValue(type, out menu);
-        if (menu == null)
+        UIVIew view;
+        views.TryGetValue(type, out view);
+        if (view == null)
         {
-            Debug.LogError(string.Format("Menu: {0} is null", type.ToString()));
-            return;
+            Debug.LogError($"Menu: {type.ToString()} is null");
+            return null;
         }
-        if (menu.IsShown)
+        if (view.IsShown)
         {
-            menu.Hide();
+            view.Hide();
         }
+        return view;
     }
 }
