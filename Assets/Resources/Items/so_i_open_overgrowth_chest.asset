@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b22a7d8c44d686940bb616de35c19c2e, type: 3}
-  m_Name: i_so_open_ruby_chest
+  m_Name: so_i_open_overgrowth_chest
   m_EditorClassIdentifier: 
-  Name: Ruby Chest (Unlocked)
-  Description: An extravagant chest made of ruby (Unlocked)
-  BaseValue: 2500
-  Sprite: {fileID: 21300000, guid: 44a1e472291d93b4b86d57393e34fa02, type: 3}
+  Name: Overgrowth Chest (Unlocked)
+  Description: A chest covered in overgrowth (Unlocked)
+  BaseValue: 1000
+  Sprite: {fileID: 21300000, guid: 06e5c8fd538a64f46b3be9c1532f7c47, type: 3}
   Type: 2
   Rarity: 3
   OverridePrefab: {fileID: 0}

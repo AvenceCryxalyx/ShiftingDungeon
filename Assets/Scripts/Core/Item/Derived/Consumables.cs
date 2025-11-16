@@ -4,7 +4,7 @@ using UnityEngine;
 public class Consumables : Item
 {
     List<Effect> effects = new List<Effect>(); 
-    public override void Use()
+    protected override void OnUse(Player targetPlayer)
     {
         foreach (Effect effect in effects)
         {

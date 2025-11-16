@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd081849757dd624cb2870771a2b9d3b, type: 3}
-  m_Name: i_so_wooden_chest
+  m_Name: so_i_overgrowth_chest
   m_EditorClassIdentifier: 
-  Name: Wooden Chest
-  Description: A chest made of wood filled with Treasure (Locked)
-  BaseValue: 25
-  Sprite: {fileID: 21300000, guid: 7d68cfffaf85ed24996dbfcdf528179c, type: 3}
+  Name: Overgrwoth Chest
+  Description: A chest covered in overgrowth (Locked)
+  BaseValue: 500
+  Sprite: {fileID: 21300000, guid: 2e26698d35fd40d4e81853e2fa0ee976, type: 3}
   Type: 2
-  Rarity: 0
+  Rarity: 1
   OverridePrefab: {fileID: 4892838820979060753, guid: 928702c7ae9d4af4fa0981604cefb70a, type: 3}
-  Key: {fileID: 11400000, guid: 52de502ac765d1b46a1df0c89c1fb02b, type: 2}
-  OpenedItem: {fileID: 11400000, guid: 7aae55e60f8c8a349817a04c9a689d2e, type: 2}
+  Key: {fileID: 11400000, guid: bebeaea70f633d1499a8bff18ed5bbb3, type: 2}
+  OpenedItem: {fileID: 11400000, guid: e839069690e11f646a9ec33ceefce55c, type: 2}

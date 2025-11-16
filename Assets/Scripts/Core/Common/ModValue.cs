@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 
 public class ModValue
 {
-    public ModValue(int baseValue, float addMod, float multMod)
+    public ModValue(float baseValue, float addMod = 0f, float multMod = 0f)
     {
         Base = baseValue;
         AddMod = addMod;
@@ -13,12 +13,12 @@ public class ModValue
     }
 
     #region Events
-    public Action<int, int> EvtValueChanged;
+    public Action<float, float> EvtValueChanged;
     #endregion
 
     #region Properties
-    public int Current { get; protected set; }
-    public int Base { get; protected set; }
+    public float Current { get; protected set; }
+    public float Base { get; protected set; }
     public float AddMod { get; protected set; }
     public float MultMod {  get; protected set; }
     #endregion
@@ -49,7 +49,7 @@ public class ModValue
 
     protected void UpdateCurrent()
     {
-        int newValue = (int)((Base * MultMod) + AddMod);
+        float newValue = Mathf.CeilToInt((int)((Base * MultMod) + AddMod));
         if(Current == newValue)
         {
             return;

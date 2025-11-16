@@ -7,15 +7,12 @@ public class Player : SimpleSingleton<Player>
 
     public PlayerInputAction Inputs { get; protected set; }
     public PlayerUnitController Unit { get; protected set; }
-    public Health Health { get; protected set; }
-    public Inventory Inventory { get; protected set; }
+
     //public Currency Wallet { get; protected set; }
     protected override void Awake()
     {
         base.Awake();
-        Inventory = GetComponentInChildren<Inventory>();
         Inputs = new PlayerInputAction();
-        Health = GetComponentInChildren<Health>();
     }
 
     public void RegisterUnit(PlayerUnitController controller)

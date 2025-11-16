@@ -20,9 +20,14 @@ public class LockedItem : Item
         {
             return false;
         }
-        Destroy(Player.instance.Inventory.RemoveItem(keyItem, false).gameObject);
-        Destroy(Player.instance.Inventory.RemoveItem(this, false).gameObject);
-        Player.instance.Inventory.AddItem(ItemManager.instance.GetItem(openedObjectName));
+
+        Inventory inventory = Player.instance.GetComponentInChildren<Inventory>();
+
+        if (inventory != null) {
+            Destroy(inventory.RemoveItem(keyItem, false).gameObject);
+            Destroy(inventory.RemoveItem(this, false).gameObject);
+            inventory.AddItem(ItemManager.instance.GetItem(openedObjectName));
+        }
         return true;
     }
 }

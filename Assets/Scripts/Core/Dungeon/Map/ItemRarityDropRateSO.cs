@@ -8,7 +8,7 @@ public class ItemRarityDropRateSO : ScriptableObject
     [Serializable]
     public struct RarityDropRate
     {
-        public InteractableItem Drop;
+        public ItemDrop Drop;
         public int weight;
     }    
     public List<RarityDropRate> ItemDrops;

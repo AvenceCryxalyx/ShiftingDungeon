@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b22a7d8c44d686940bb616de35c19c2e, type: 3}
-  m_Name: i_so_purple_gem
+  m_Name: so_i_purple_gem
   m_EditorClassIdentifier: 
   Name: Purple Gem
   Description: A purple gem

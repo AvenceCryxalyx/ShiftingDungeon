@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b22a7d8c44d686940bb616de35c19c2e, type: 3}
-  m_Name: i_so_key_ruby
+  m_Name: so_i_open_wooden_chest
   m_EditorClassIdentifier: 
-  Name: Ruby Chest Key
-  Description: A key that opens Ruby chests.
+  Name: Wooden Chest (Unlocked)
+  Description: A chest made of wood filled with Treasure (Unlocked)
   BaseValue: 250
-  Sprite: {fileID: 21300000, guid: 477a6f4e2cedd924591b70c52bc67bcf, type: 3}
-  Type: 3
-  Rarity: 3
+  Sprite: {fileID: 21300000, guid: 44a1e472291d93b4b86d57393e34fa02, type: 3}
+  Type: 2
+  Rarity: 1
   OverridePrefab: {fileID: 0}

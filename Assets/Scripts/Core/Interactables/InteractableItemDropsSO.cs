@@ -10,12 +10,12 @@ public class InteractableItemDropsSO : ScriptableObject
     public struct InteractableItemDropRarity
     {
         public Item.ItemRarity Rarity;
-        public InteractableItem DropItem;
+        public ItemDrop DropItem;
     }
     public List<InteractableItemDropRarity> RarityDropLists;
 
-    public InteractableItem GetDropItem(Item.ItemRarity rarity)
+    public ItemDrop GetDropItem(Item.ItemRarity rarity)
     {
-        return SpawnManager.instance.GetSpawn<InteractableItem>(RarityDropLists[(int)rarity].DropItem.gameObject);
+        return SpawnManager.instance.GetSpawn<ItemDrop>(RarityDropLists[(int)rarity].DropItem.gameObject);
     }
 }

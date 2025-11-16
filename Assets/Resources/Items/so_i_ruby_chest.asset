@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd081849757dd624cb2870771a2b9d3b, type: 3}
-  m_Name: i_so_ruby_chest
+  m_Name: so_i_ruby_chest
   m_EditorClassIdentifier: 
   Name: Ruby Chest
   Description: An extravagant chest made of ruby (Locked)
